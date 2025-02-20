@@ -8,12 +8,17 @@ interface ApiResponse {
   data: IProductList[];
 }
 
+
 const GetListOfProducts = async (): Promise<ApiResponse> => {
+ try{
   const response: AxiosResponse<ApiResponse> = await axios.get(
     ProductsApi.getProducts(),
   )
   
   return response.data
+ }catch (error) {
+   throw error
+ }
 }
 
 export const useGetListOfProducts = () => {
