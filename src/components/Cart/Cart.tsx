@@ -9,13 +9,11 @@ import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 
 export function CartSheet() {
-  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   const [isMounted, setIsMounted] = useState(false);
-
-  console.log('AVailble items in cart', cart);
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
   const calculateTotal = useMemo(() => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return (cart ?? []).reduce((total, item) => total + item.price * item.quantity, 0);
   }, [cart]);
 
   useEffect(() => {
@@ -32,12 +30,12 @@ export function CartSheet() {
       <SheetTrigger asChild>
         <Button variant='outline' size='icon' className='relative ml-auto'>
           <ShoppingCart className='h-5 w-5' />
-          {cart.length > 0 && (
+          {cart?.length > 0 && (
             <span
               className='absolute -top-4 -right-5 bg-red-500 text-white 
               rounded-full h-5 w-5 flex items-center justify-center text-xs'
             >
-              {cart.reduce((total, item) => total + item.quantity, 0)}
+              {cart?.reduce((total, item) => total + item.quantity, 0)}
             </span>
           )}
         </Button>
@@ -47,7 +45,7 @@ export function CartSheet() {
           <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
 
-        {cart.length === 0 ? (
+        {cart?.length === 0 ? (
           <div className='flex flex-col items-center justify-center h-full text-center'>
             <ShoppingCart className='h-16 w-16 text-gray-300 mb-4' />
             <p className='text-gray-600'>Your cart is empty</p>
@@ -55,9 +53,23 @@ export function CartSheet() {
         ) : (
           <>
             <div className='overflow-y-auto max-h-[calc(100vh-250px)] space-y-4 py-4'>
-              {cart.map(item => (
+              {cart?.map(item => (
                 <div key={item.id} className='flex items-center border-b pb-4 space-x-4'>
-                  <Image src={item.image} alt={item.name} width={80} height={80} className='object-cover rounded-lg' />
+                  <div className='relative w-20 h-20 bg-gray-100 rounded-lg'>
+                    {item ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className='object-cover rounded-lg'
+                        sizes='(max-width: 80px) 100vw, 80px'
+                      />
+                    ) : (
+                      <div className='w-full h-full flex items-center justify-center'>
+                        <span className='text-gray-400 text-xs'>Image not available</span>
+                      </div>
+                    )}
+                  </div>
                   <div className='flex-grow'>
                     <h3 className='font-semibold'>{item.name}</h3>
                     <p className='text-gray-600'>${item.price.toFixed(2)}</p>

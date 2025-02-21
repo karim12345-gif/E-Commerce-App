@@ -1,73 +1,71 @@
 'use client';
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { CartContextType, CartItem } from '../interfaces/cart';
 
-// Cart Item Interface
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
-
-// Cart Context Interface
-interface CartContextType {
-  cart: CartItem[];
-  addToCart: (product: Omit<CartItem, 'quantity'>) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  clearCart: () => void;
-}
-
-// Create Cart Context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Cart Provider Component
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(() => {
-    // Initialize cart from localStorage
-    if (typeof window !== 'undefined') {
-      const savedCart = localStorage.getItem('cart');
-      return savedCart ? JSON.parse(savedCart) : [];
+    try {
+      if (typeof window !== 'undefined') {
+        const savedCart = localStorage.getItem('Cart Item List:');
+        // Make sure we return an array or default to empty array
+        return savedCart ? JSON.parse(savedCart) || [] : [];
+      }
+      return [];
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error);
+      return [];
     }
-    return [];
   });
 
-  // Persist cart to localStorage whenever it changes
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('cart', JSON.stringify(cart));
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('Cart Item List:', JSON.stringify(cart));
+      }
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error);
     }
   }, [cart]);
 
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
     setCart(currentCart => {
+      // Add safety check for currentCart
+      const safeCart = currentCart || [];
+
       // Check if product already in cart
-      const existingProductIndex = currentCart.findIndex(item => item.id === product.id);
+      const existingProductIndex = safeCart.findIndex(item => item.id === product.id);
 
       if (existingProductIndex > -1) {
         // If product exists, increase quantity
-        const updatedCart = [...currentCart];
+        const updatedCart = [...safeCart];
         updatedCart[existingProductIndex].quantity += 1;
         return updatedCart;
       }
 
       // If product not in cart, add new item
-      return [...currentCart, { ...product, quantity: 1 }];
+      return [...safeCart, { ...product, quantity: 1 }];
     });
   };
 
   const removeFromCart = (productId: string) => {
-    setCart(currentCart => currentCart.filter(item => item.id !== productId));
+    setCart(currentCart => {
+      // Add safety check
+      const safeCart = currentCart || [];
+      return safeCart.filter(item => item.id !== productId);
+    });
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    setCart(currentCart =>
-      currentCart
+    setCart(currentCart => {
+      // Add safety check
+      const safeCart = currentCart || [];
+      return safeCart
         .map(item => (item.id === productId ? { ...item, quantity: Math.max(0, quantity) } : item))
-        .filter(item => item.quantity > 0),
-    );
+        .filter(item => item.quantity > 0);
+    });
   };
 
   const clearCart = () => {
@@ -77,7 +75,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   return (
     <CartContext.Provider
       value={{
-        cart,
+        cart: cart || [],
         addToCart,
         removeFromCart,
         updateQuantity,
@@ -89,7 +87,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Custom hook to use cart context
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {

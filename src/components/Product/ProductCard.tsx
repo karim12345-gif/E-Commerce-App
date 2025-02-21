@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { IProductList } from '~/src/interfaces/products';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { useCart } from '~/src/context/CartContext';
+import { toast } from '~/src/hooks/use-toast';
 
 interface ProductCardProps {
   product: IProductList;
@@ -16,13 +17,29 @@ export function ProductCard({ product }: ProductCardProps) {
   const imageUrl = Array.isArray(product.images) ? product.images[0] : product.images;
   const priceInfo = Array.isArray(product.price) ? product.price[0] : product.price;
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: priceInfo?.amount || 0,
-      image: imageUrl || '',
-    });
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({
+        id: product.id,
+        name: product.name,
+        price: priceInfo?.amount || 0,
+        image: imageUrl || '',
+      });
+
+      toast({
+        title: 'Success',
+        description: `${product.name} has been added to your cart`,
+        variant: 'default',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to add item to cart. Please try again.',
+        variant: 'destructive',
+      });
+
+      console.error('Add to cart error:', error);
+    }
   };
 
   return (

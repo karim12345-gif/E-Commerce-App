@@ -2,5 +2,7 @@ interface ReactQueryProviderProps {
     children: React.ReactNode;
   }
 
+  import { ICategory } from "./category";
 
-  export type {ReactQueryProviderProps}
+
+  export type {ReactQueryProviderProps, ICategory}

@@ -8,7 +8,7 @@ interface ProductPageDetailPresenterProps {
   selectedImageIndex: number;
   onImageSelect: (index: number) => void;
   onBack: () => void;
-  onAddToCart: (productId: string) => void;
+  onAddToCart: () => void;
 }
 
 export function ProductPageDetailPresenter({
@@ -69,7 +69,7 @@ export function ProductPageDetailPresenter({
             {product.price.currency} {product.price.amount}
           </div>
 
-          <Button size='lg' className='w-full md:w-auto' onClick={() => onAddToCart(product.id)}>
+          <Button size='lg' className='w-full md:w-auto' onClick={() => onAddToCart()}>
             Add to Cart
           </Button>
         </div>
