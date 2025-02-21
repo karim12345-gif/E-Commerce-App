@@ -57,3 +57,8 @@ export type Order = {
   status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
   timestamp?: Date;
 };
+
+export type CheckoutDto = {
+  user: User;
+  products: CheckoutItem[];
+};

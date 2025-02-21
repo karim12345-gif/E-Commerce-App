@@ -32,13 +32,13 @@ export default function ProductPageDetail() {
       toast({
         title: 'Success',
         description: `${product.name} has been added to your cart`,
-        variant: 'default', // Green toast for success
+        variant: 'default',
       });
     } catch (error) {
       toast({
         title: 'error',
         description: 'Failed to add item to cart. Please try again.',
-        variant: 'destructive', // Red toast for error
+        variant: 'destructive',
       });
 
       console.error('Add to cart error:', error);

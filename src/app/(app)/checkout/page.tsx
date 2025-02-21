@@ -1,4 +1,29 @@
 // this is the checkout page of for an order
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { OrderSummary } from '~/src/components/checkout/OrderSummary';
+import { UserForm } from '~/src/components/checkout/UserForm';
+import { useCheckoutLogic } from './hooks/useCheckoutLogic';
+import { ButtonIconLeft } from '~/src/components/ui/ButtonIcon';
+
 export default function CheckoutPage() {
-  return <div>{CheckoutPage.name}</div>;
+  const router = useRouter();
+  const { cart, userInfo, isProcessing, handleSubmit, handleNameChange } = useCheckoutLogic();
+
+  const onBack = () => router.back();
+
+  return (
+    <div className='min-h-screen flex items-center justify-center'>
+      <div className='max-w-7xl w-full px-4 py-8'>
+        <ButtonIconLeft variant='ghost' onClick={onBack} />
+        <h1 className='text-3xl font-bold mb-8 text-center'>Checkout Page:</h1>
+
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+          <OrderSummary cart={cart} />
+          <UserForm userInfo={userInfo} isProcessing={isProcessing} onNameChange={handleNameChange} onSubmit={handleSubmit} />
+        </div>
+      </div>
+    </div>
+  );
 }
