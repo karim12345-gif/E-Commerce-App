@@ -1,14 +1,14 @@
 'use client';
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
+import { Button } from '~/src/components/ui/buttons/button';
 import { ShoppingCart, Trash2, Plus, Minus } from 'lucide-react';
 import { useCart } from '~/src/context/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
-import { EmptyCartMessage } from '../checkout/EmptyCartMessage';
 import { calculateCartTotal } from '~/src/lib/utils';
+import { EmptyCartMessage } from '../checkout';
 
 export function CartSheet() {
   const [isMounted, setIsMounted] = useState(false);

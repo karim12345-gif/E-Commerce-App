@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { Card } from '@/components/ui/card';
-import { ICategory } from '~/src/interfaces';
+import { Card } from '~/src/components/ui/card/card';
+import { Category } from '~/src/types/app';
 
 interface CategoriesListProps {
-  categories: ICategory[];
+  categories: Category[];
 }
 
 export function CategoriesList({ categories }: CategoriesListProps) {

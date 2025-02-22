@@ -12,6 +12,7 @@ export type Product = {
   price: Price;
   images: string[];
   categories: string[];
+  slug:string;
 };
 
 export type Category = {
@@ -76,3 +77,6 @@ export interface ErrorResponse {
   message?: string;
   error?: string;
 }
+
+
+ 

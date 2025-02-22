@@ -1,8 +1,8 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { IProductList } from '~/src/interfaces/products';
+import { Card, CardContent } from '~/src/components/ui/card/card';
+import { Product } from '~/src/types/app';
 
 type ProductCategoryProps = {
-  products: IProductList[];
+  products: Product[];
 };
 
 export const ProductCategoryList = ({ products }: ProductCategoryProps) => {

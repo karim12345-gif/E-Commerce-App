@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Button } from '~/src/components/ui/button';
+import { Button } from '~/src/components/ui/buttons/button';
 
 const Custom500 = () => {
   const router = useRouter();

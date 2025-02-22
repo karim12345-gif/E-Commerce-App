@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { Button } from '~/src/components/ui/button';
+import { Button } from '~/src/components/ui/buttons/button';
 
 // Note the specific error props type from Next.js
 interface ErrorProps {

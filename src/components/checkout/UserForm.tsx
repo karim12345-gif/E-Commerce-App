@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '~/src/components/ui/buttons/button';
+import { Card } from '~/src/components/ui/card/card';
+import { Input } from '~/src/components/ui/inputs/input';
+import { Label } from '~/src/components/ui/label/label';
 import { User } from '~/src/types/app';
 
 interface UserFormProps {

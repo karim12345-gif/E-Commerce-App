@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { ButtonIconLeft } from '../ui/ButtonIcon';
+import { ButtonIconLeft } from '../ui/buttons/ButtonIcon';
 
 type CategoryHeaderProps = {
   name: string;

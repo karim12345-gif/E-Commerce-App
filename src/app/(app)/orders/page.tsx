@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Order } from '~/src/types/app';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '~/src/components/ui/card/card';
+import { Button } from '~/src/components/ui/buttons/button';
 import { ShoppingBag, Package, DollarSign, Info } from 'lucide-react';
 
 // Helper function to safely convert timestamp to localeString

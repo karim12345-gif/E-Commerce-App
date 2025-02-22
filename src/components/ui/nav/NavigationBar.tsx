@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { CartSheet } from '../Cart/Cart';
+import { Button } from '~/src/components/ui/buttons/button';
 import { Home, List, ShoppingBag } from 'lucide-react';
+import { CartSheet } from '../../Cart';
 
 export function NavigationBar() {
   return (

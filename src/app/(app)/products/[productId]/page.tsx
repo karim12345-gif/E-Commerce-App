@@ -4,11 +4,11 @@ import { useParams } from 'next/navigation';
 import { useGetProductById } from '~/src/services/hooks/Products';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProductPageDetailPresenter } from '~/src/components/Product/ProductPageDetail';
-import { ButtonLoading } from '~/src/components/ui/buttonLoader';
+import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 import { useCart } from '~/src/context';
 import { useToast } from '~/src/hooks/use-toast';
 import Custom404 from '~/src/app/404/page';
+import { ProductPageDetailPresenter } from '~/src/components/Product';
 
 export default function ProductPageDetail() {
   const params = useParams();

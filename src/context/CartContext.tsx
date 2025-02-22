@@ -47,7 +47,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-        console.log('Cart saved to localStorage:', cart);
       } catch (error) {
         console.error('Error saving cart to localStorage:', error);
       }

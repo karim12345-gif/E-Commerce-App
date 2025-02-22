@@ -1,5 +1,5 @@
 import { ChevronLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "~/src/components/ui/buttons/button";
 import { ButtonHTMLAttributes } from "react";
 
 interface ButtonIconLeftProps extends ButtonHTMLAttributes<HTMLButtonElement> {

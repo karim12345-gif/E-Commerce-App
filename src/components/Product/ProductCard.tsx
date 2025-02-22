@@ -2,14 +2,14 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { IProductList } from '~/src/interfaces/products';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '~/src/components/ui/buttons/button';
+import { Card, CardContent, CardFooter } from '~/src/components/ui/card/card';
 import { useCart } from '~/src/context/CartContext';
 import { toast } from '~/src/hooks/use-toast';
+import { Product } from '~/src/types/app';
 
 interface ProductCardProps {
-  product: IProductList;
+  product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {

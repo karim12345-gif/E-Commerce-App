@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '~/src/components/ui/buttons/button';
 import { useParams, useRouter } from 'next/navigation';
-import { ButtonLoading } from '~/src/components/ui/buttonLoader';
+import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
 import { useGetCategoryById } from '~/src/services/hooks/Categories';
 import { CategoryHeader, ProductCategoryList } from '~/src/components/Categories';

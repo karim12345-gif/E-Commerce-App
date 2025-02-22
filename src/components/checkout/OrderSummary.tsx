@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/card';
+import { Card } from '~/src/components/ui/card/card';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { CartItem } from '~/src/interfaces/cart';

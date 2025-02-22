@@ -1,15 +1,7 @@
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { IProductList } from '~/src/interfaces/products';
-import { ButtonIconLeft } from '../ui/ButtonIcon';
-
-interface ProductPageDetailPresenterProps {
-  product: IProductList;
-  selectedImageIndex: number;
-  onImageSelect: (index: number) => void;
-  onBack: () => void;
-  onAddToCart: () => void;
-}
+import { Button } from '~/src/components/ui/buttons/button';
+import { ButtonIconLeft } from '../ui/buttons/ButtonIcon';
+import { ProductPageDetailPresenterProps } from '~/src/interfaces';
 
 export function ProductPageDetailPresenter({
   product,

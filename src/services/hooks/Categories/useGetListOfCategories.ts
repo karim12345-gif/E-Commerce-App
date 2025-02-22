@@ -2,13 +2,13 @@
 import axios, { AxiosResponse } from "axios"
 import { CategoriesApi } from "../../api"
 import { useQuery } from "@tanstack/react-query"
-import { ICategory } from "~/src/interfaces"
+import { Category } from "~/src/types/app";
 
 
 
-const GetListOfCategories = async (): Promise<ICategory[]> => {
+const GetListOfCategories = async (): Promise<Category[]> => {
     try {
-      const response: AxiosResponse<{data: ICategory[]}> = await axios.get(
+      const response: AxiosResponse<{data: Category[]}> = await axios.get(
         CategoriesApi.getListOfProductCategories(),
       );
   

@@ -2,7 +2,7 @@
 'use client';
 
 import { CategoriesList, CategoriesSkeleton } from '~/src/components/Categories';
-import { ButtonIconLeft } from '~/src/components/ui/ButtonIcon';
+import { ButtonIconLeft } from '~/src/components/ui/buttons/ButtonIcon';
 import { useGetListOfCategories } from '~/src/services/hooks/Categories/useGetListOfCategories';
 import { useRouter } from 'next/navigation';
 

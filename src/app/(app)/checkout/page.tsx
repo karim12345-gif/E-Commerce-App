@@ -1,11 +1,9 @@
-// this is the checkout page of for an order
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { OrderSummary } from '~/src/components/checkout/OrderSummary';
-import { UserForm } from '~/src/components/checkout/UserForm';
 import { useCheckoutLogic } from './hooks/useCheckoutLogic';
-import { ButtonIconLeft } from '~/src/components/ui/ButtonIcon';
+import { ButtonIconLeft } from '~/src/components/ui/buttons/ButtonIcon';
+import { OrderSummary, UserForm } from '~/src/components/checkout';
 
 export default function CheckoutPage() {
   const router = useRouter();

@@ -2,10 +2,10 @@
 import axios, { AxiosResponse } from "axios"
 import { ProductsApi } from "../../api"
 import { useQuery } from "@tanstack/react-query"
-import { IProductList } from "~/src/interfaces/products"
+import { Product } from "~/src/types/app";
 
 interface ApiResponse {
-  data: IProductList[];
+  data: Product[];
 }
 
 

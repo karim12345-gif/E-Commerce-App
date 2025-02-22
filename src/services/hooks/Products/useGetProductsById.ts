@@ -1,15 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsApi } from 'src/services/api';
-import { IProductList } from '~/src/interfaces/products';
+import { Product } from '~/src/types/app';
 
 interface ApiResponse {
   success: boolean;
   message: string;
-  data: IProductList;
+  data: Product;
 }
 
-const GetProductById = async (id?: string): Promise<IProductList | null> => {
+const GetProductById = async (id?: string): Promise<Product | null> => {
   if (!id) {
     return null;
   }
