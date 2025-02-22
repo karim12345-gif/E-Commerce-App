@@ -31,7 +31,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             )
           : [];
 
-        console.log('Validated Cart:', validatedCart);
         return validatedCart;
       }
 
@@ -64,8 +63,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           item.id === product.id && item.name === product.name && item.price === product.price && item.image === product.image,
       );
 
-      console.log('Existing Product Index:', existingProductIndex);
-
       if (existingProductIndex > -1) {
         const updatedCart = [...safeCart];
         updatedCart[existingProductIndex] = {
@@ -73,15 +70,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           quantity: updatedCart[existingProductIndex].quantity + 1,
         };
 
-        console.log('Updated Cart:', updatedCart);
-        console.groupEnd();
         return updatedCart;
       }
 
       // Add new item
       const newCart = [...safeCart, { ...product, quantity: 1 }];
-      console.log('New Cart:', newCart);
-      console.groupEnd();
       return newCart;
     });
   };

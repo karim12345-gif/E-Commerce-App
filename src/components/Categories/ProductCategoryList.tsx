@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Card, CardContent } from '~/src/components/ui/card/card';
 import { Product } from '~/src/types/app';
 
@@ -12,7 +13,18 @@ export const ProductCategoryList = ({ products }: ProductCategoryProps) => {
         products.map(product => (
           <Card key={product.id}>
             <CardContent className='p-4'>
-              <img src={product.images[0]} alt={product.name} className='w-full h-48 object-cover rounded-lg mb-4' />
+              <div className='relative w-full h-48 mb-4'>
+                <Image
+                  src={product.images[0]}
+                  alt={product.name}
+                  fill
+                  className='object-cover rounded-lg'
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  placeholder='blur'
+                  blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAIQAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAFA4PEg8NFBIQEhcVFBgeMiEeHBwZMiUlJSUlMTAxMDA0NjA1MTgxMgwoJjZHNTU1MTFCPTk7QUJDSUZMTlH/wAALCAAIACABAREA/8QAGgABAAMBAQEAAAAAAAAAAAAAAAMEBQYCAf/aAAgBAQAAPwDdyfN6/R6PR6PR6PXrPR6PR6PR6PR6PR6PX//Z'
+                  quality={75}
+                />
+              </div>
               <h2 className='text-xl font-semibold mb-2'>{product.name}</h2>
               <p className='text-gray-600 mb-2'>${product.price.amount}</p>
             </CardContent>

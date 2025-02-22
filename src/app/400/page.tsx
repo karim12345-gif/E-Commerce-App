@@ -2,22 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useEffect } from 'react';
 import { Button } from '~/src/components/ui/buttons/button';
 
-// Note the specific error props type from Next.js
-interface ErrorProps {
-  error: Error & { digest?: string };
-  reset: () => void;
-}
-
-const Custom400 = ({ error, reset }: ErrorProps) => {
+const Custom400 = () => {
   const router = useRouter();
-
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
 
   const handleGoHome = () => {
     router.push('/');
@@ -42,9 +30,6 @@ const Custom400 = ({ error, reset }: ErrorProps) => {
         </div>
 
         <div className='space-x-4 mt-2 justify-center items-center'>
-          <Button onClick={() => reset()} variant='default' size='default' className='px-6 py-3'>
-            Try Again
-          </Button>
           <Button onClick={handleGoHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
             Back to Home
           </Button>
