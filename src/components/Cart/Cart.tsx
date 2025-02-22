@@ -15,10 +15,6 @@ export function CartSheet() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
-  // const calculateTotal = useMemo(() => {
-  //   return (cart ?? []).reduce((total, item) => total + item.price * item.quantity, 0);
-  // }, [cart]);
-
   const calculateTotal = useMemo(() => {
     return calculateCartTotal(cart);
   }, [cart]);
@@ -42,7 +38,7 @@ export function CartSheet() {
   };
 
   const handleCheckout = () => {
-    // Close the sheet after a short delay to allow for navigation
+    // Closes the sheet after a short delay to allow for navigation
     setTimeout(() => {
       closeSheet();
     }, 100);

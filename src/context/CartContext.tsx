@@ -5,14 +5,36 @@ import { CartContextType, CartItem } from '../interfaces/cart';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+const CART_STORAGE_KEY = 'Cart Item List:';
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+
     try {
-      if (typeof window !== 'undefined') {
-        const savedCart = localStorage.getItem('Cart Item List:');
-        // Make sure we return an array or default to empty array
-        return savedCart ? JSON.parse(savedCart) || [] : [];
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+
+      // Parse and validate cart
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart);
+
+        // Strict Validation of Cart Items
+        const validatedCart = Array.isArray(parsedCart)
+          ? parsedCart.filter(
+              item =>
+                item &&
+                typeof item.id === 'string' &&
+                typeof item.name === 'string' &&
+                typeof item.price === 'number' &&
+                typeof item.image === 'string' &&
+                typeof item.quantity === 'number',
+            )
+          : [];
+
+        console.log('Validated Cart:', validatedCart);
+        return validatedCart;
       }
+
       return [];
     } catch (error) {
       console.error('Error loading cart from localStorage:', error);
@@ -21,39 +43,51 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('Cart Item List:', JSON.stringify(cart));
+    // Only update localStorage on client-side
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+        console.log('Cart saved to localStorage:', cart);
+      } catch (error) {
+        console.error('Error saving cart to localStorage:', error);
       }
-    } catch (error) {
-      console.error('Error saving cart to localStorage:', error);
     }
   }, [cart]);
 
+  // Add to Cart
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
     setCart(currentCart => {
-      // Add safety check for currentCart
-      const safeCart = currentCart || [];
+      // currentCart is an array
+      const safeCart = Array.isArray(currentCart) ? currentCart : [];
 
-      // Check if product already in cart
-      const existingProductIndex = safeCart.findIndex(item => item.id === product.id);
+      const existingProductIndex = safeCart.findIndex(
+        item =>
+          item.id === product.id && item.name === product.name && item.price === product.price && item.image === product.image,
+      );
 
       console.log('Existing Product Index:', existingProductIndex);
-      console.log('Current Cart:', safeCart);
-      console.log('Adding Product:', product);
 
       if (existingProductIndex > -1) {
-        // If product exists, increase quantity
         const updatedCart = [...safeCart];
-        updatedCart[existingProductIndex].quantity += 1;
+        updatedCart[existingProductIndex] = {
+          ...updatedCart[existingProductIndex],
+          quantity: updatedCart[existingProductIndex].quantity + 1,
+        };
+
+        console.log('Updated Cart:', updatedCart);
+        console.groupEnd();
         return updatedCart;
       }
 
-      // If product not in cart, add new item
-      return [...safeCart, { ...product, quantity: 1 }];
+      // Add new item
+      const newCart = [...safeCart, { ...product, quantity: 1 }];
+      console.log('New Cart:', newCart);
+      console.groupEnd();
+      return newCart;
     });
   };
 
+  // Remove From Cart
   const removeFromCart = (productId: string) => {
     setCart(currentCart => {
       // Add safety check
@@ -62,6 +96,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  // Update
   const updateQuantity = (productId: string, quantity: number) => {
     setCart(currentCart => {
       // Add safety check
@@ -72,6 +107,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  // Clear the items
   const clearCart = () => {
     setCart([]);
   };
