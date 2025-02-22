@@ -30,7 +30,8 @@ export const usePostCheckoutMutation = () => {
         user: checkoutData.user,
         products: checkoutData.products,
         timestamp: new Date().toISOString(),
-        status: 'COMPLETED'
+        status: 'COMPLETED',
+        
       }
 
       // Store in React Query cache
@@ -40,3 +41,17 @@ export const usePostCheckoutMutation = () => {
     }
   })
 }
+
+
+
+// status: 'COMPLETED',
+// subtotal: {
+// amount: checkoutData.products.reduce((sum, item) => 
+//  sum + (item.quantity || 1) * 10, 0), 
+// currency: 'AED'
+// },
+// total: {
+// amount: checkoutData.products.reduce((sum, item) => 
+//  sum + (item.quantity || 1) * 10, 0), 
+// currency: 'AED'
+// }

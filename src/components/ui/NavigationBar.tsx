@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CartSheet } from '../Cart/Cart';
-import { Home } from 'lucide-react';
+import { Home, List, ShoppingBag } from 'lucide-react';
 
 export function NavigationBar() {
   return (
@@ -17,12 +17,20 @@ export function NavigationBar() {
           </Link>
         </div>
 
+        <div className="flex items-center space-x-4">
         <Link href="/categories">
-          <Button className='flex-3'>
+          <Button className='flex items-center'>
+            <List className="h-5 w-5 mr-2" />
             Categories
           </Button>
         </Link>
-
+        <Link href="/orders">
+          <Button className='flex items-center'>
+            <ShoppingBag className="h-5 w-5 mr-2" />
+            Order History
+          </Button>
+        </Link>
+      </div>
         {/* Cart component */}
         <div className="w-24 flex justify-end">
           <CartSheet />

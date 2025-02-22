@@ -38,6 +38,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       // Check if product already in cart
       const existingProductIndex = safeCart.findIndex(item => item.id === product.id);
 
+      console.log('Existing Product Index:', existingProductIndex);
+      console.log('Current Cart:', safeCart);
+      console.log('Adding Product:', product);
+
       if (existingProductIndex > -1) {
         // If product exists, increase quantity
         const updatedCart = [...safeCart];

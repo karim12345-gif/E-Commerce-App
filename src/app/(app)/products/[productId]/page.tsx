@@ -2,20 +2,20 @@
 
 import { useParams } from 'next/navigation';
 import { useGetProductById } from '~/src/services/hooks/Products';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductPageDetailPresenter } from '~/src/components/Product/ProductPageDetail';
 import { ButtonLoading } from '~/src/components/ui/buttonLoader';
 import { useCart } from '~/src/context';
 import { useToast } from '~/src/hooks/use-toast';
+import Custom404 from '~/src/app/404/page';
 
 export default function ProductPageDetail() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
   const { addToCart } = useCart();
-  const { data: product, isLoading } = useGetProductById(params.productId as string);
+  const { data: product, isLoading, error } = useGetProductById(params.productId as string);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const handleAddToCart = async () => {
@@ -33,12 +33,14 @@ export default function ProductPageDetail() {
         title: 'Success',
         description: `${product.name} has been added to your cart`,
         variant: 'default',
+        duration: 1000,
       });
     } catch (error) {
       toast({
         title: 'error',
         description: 'Failed to add item to cart. Please try again.',
         variant: 'destructive',
+        duration: 1000,
       });
 
       console.error('Add to cart error:', error);
@@ -55,13 +57,15 @@ export default function ProductPageDetail() {
 
   if (!product) {
     return (
-      <div className='container mx-auto p-6'>
-        <div className='text-center space-y-4'>
-          <h1 className='text-2xl font-bold'>Product Not Found</h1>
-          <Button onClick={() => router.back()}>Return to Products</Button>
-        </div>
+      <div>
+        <Custom404 />
       </div>
     );
+  }
+
+  if (error) {
+    // This will trigger the nearest error.tsx
+    throw error;
   }
 
   return (

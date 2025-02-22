@@ -1,73 +1,43 @@
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
-import { ResponseModel } from '../../models';
+import { ErrorResponse } from '~/src/types/app';
 
-interface ErrorResponse {
-  response: {
-    data: unknown;
-    status: number;
-  };
+interface ResponseModel<T> {
+  result: number;
+  body: T;
+  message: string;
 }
 
-const isResponseModel = (obj: unknown): obj is ResponseModel<unknown> => {
-  return typeof obj === 'object' && obj !== null && 'result' in obj && 'body' in obj && 'message' in obj;
-};
-
-const isErrorResponse = (error: unknown): error is ErrorResponse => {
+export const isResponseModel = <T>(obj: unknown): obj is ResponseModel<T> => {
   return (
-    typeof error === 'object' &&
-    error !== null &&
-    'response' in error &&
-    typeof (error as ErrorResponse).response === 'object' &&
-    (error as ErrorResponse).response !== null
+    typeof obj === 'object' &&
+    obj !== null &&
+    'result' in obj &&
+    'body' in obj &&
+    'message' in obj
   );
 };
 
-export const ResponseModelHelper = (error: unknown) => {
-  const router = useRouter();
 
-  // Handle network errors or when response is undefined
-  if (!isErrorResponse(error)) {
-    toast.error('Network error occurred', { id: 'loading' });
-    router.push('/500');
+export const ResponseModelHelper = (error: ErrorResponse, push: (path: string) => void) => {
+
+  // Network error or no response
+  if (!error.response) {
+    push('/500');
     return;
   }
 
-  const { response } = error;
-  
-  // Handle ResponseModel errors
-  if (isResponseModel(response.data)) {
-    const { result, message } = response.data;
-    toast.error(message, { id: 'loading' });
-    
-    // Redirect based on result code
-    switch (result) {
-      case 400:
-      case 404:
-        router.push('/404');
-        break;
-      case 500:
-        router.push('/500');
-        break;
-      default:
-        router.push('/500');
-    }
-    return;
-  }
+  const { status } = error.response;
 
-  // Handle standard HTTP status codes
-  switch (response.status) {
-    case 400:
-    case 404:
-      toast.error('Resource not found', { id: 'loading' });
-      router.push('/404');
-      break;
+  switch (status) {
     case 500:
-      toast.error('Server error occurred', { id: 'loading' });
-      router.push('/500');
+      push('/500');
+      break;
+    case 404:
+      push('/404');
+      break;
+    case 400:
+      push('/400');
       break;
     default:
-      toast.error('An unexpected error occurred', { id: 'loading' });
-      router.push('/500');
+      push('/500'); // Fallback for unexpected errors
   }
 };

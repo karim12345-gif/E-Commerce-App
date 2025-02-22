@@ -30,12 +30,14 @@ export function ProductCard({ product }: ProductCardProps) {
         title: 'Success',
         description: `${product.name} has been added to your cart`,
         variant: 'default',
+        duration: 1000,
       });
     } catch (error) {
       toast({
         title: 'Error',
         description: 'Failed to add item to cart. Please try again.',
         variant: 'destructive',
+        duration: 1000,
       });
 
       console.error('Add to cart error:', error);

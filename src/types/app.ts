@@ -1,3 +1,5 @@
+import { ResponseModel } from "../models";
+
 export type Price = {
   amount: number;
   currency: string;
@@ -61,4 +63,16 @@ export type Order = {
 export type CheckoutDto = {
   user: User;
   products: CheckoutItem[];
+  cart?: Cart;
 };
+
+
+
+export interface ErrorResponse {
+  response?: {
+    data: ResponseModel<unknown> | unknown;
+    status: number;
+  };
+  message?: string;
+  error?: string;
+}

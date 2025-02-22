@@ -37,8 +37,15 @@ export default function CategoryDetailPage() {
   }
 
   // Make sure we have products data
-  if (!products?.data) {
-    return <div className='text-center text-gray-600 mt-8'>No products available.</div>;
+  if (!products?.data || products.data.length === 0) {
+    return (
+      <div className='flex justify-center items-center min-h-[50vh]'>
+        <div className='text-center text-gray-600'>
+          <p className='text-xl mb-4'>No products available.</p>
+          <p className='text-sm text-gray-500'>Check back later or explore other categories.</p>
+        </div>
+      </div>
+    );
   }
 
   // Filter products for this category

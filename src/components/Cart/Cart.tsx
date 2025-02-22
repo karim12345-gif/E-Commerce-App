@@ -8,14 +8,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { EmptyCartMessage } from '../checkout/EmptyCartMessage';
+import { calculateCartTotal } from '~/src/lib/utils';
 
 export function CartSheet() {
   const [isMounted, setIsMounted] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
+  // const calculateTotal = useMemo(() => {
+  //   return (cart ?? []).reduce((total, item) => total + item.price * item.quantity, 0);
+  // }, [cart]);
+
   const calculateTotal = useMemo(() => {
-    return (cart ?? []).reduce((total, item) => total + item.price * item.quantity, 0);
+    return calculateCartTotal(cart);
   }, [cart]);
 
   useEffect(() => {

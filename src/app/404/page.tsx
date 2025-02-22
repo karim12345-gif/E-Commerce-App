@@ -1,4 +1,4 @@
-'use client'; // Mark this component as a Client Component
+'use client';
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -17,13 +17,12 @@ const Custom404 = () => {
         {/* Error Text Section */}
         <div className='flex flex-col items-center mb-6'>
           <h1 className='text-6xl font-extrabold text-red-500 mb-2'>404</h1>
-          <h5 className='text-2xl font-medium text-gray-700 mb-2'>Page Not Found ⚠️</h5>
-          <p className='text-lg text-gray-500 mb-4'>We couldn’t find the page you are looking for.</p>
+          <h5 className='text-2xl font-medium text-gray-700 mb-2'>Not Found ⚠️</h5>
         </div>
 
         {/* Error Image */}
         <div className='mb-6'>
-          <Image src='/images/pages/404.png' alt='404 Page Not Found' width={300} height={300} className='mx-auto mb-8' />
+          <Image src='/images/pages/404.png' alt='404 Page Not Found' width={200} height={200} className='mx-auto mb-8' />
         </div>
 
         {/* Back to Home Button */}

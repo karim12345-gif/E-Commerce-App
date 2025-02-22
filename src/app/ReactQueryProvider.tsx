@@ -1,14 +1,15 @@
-'use client';
-
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { ResponseModelHelper } from '../services/helpers/ResponseModelHelpers';
 import { ReactQueryProviderProps } from '../interfaces';
+import { ErrorResponse } from '../types/app';
 
 const ReactQueryProvider = ({ children }: ReactQueryProviderProps) => {
+  const router = useRouter(); // ✅ Use inside component
+
   const queryClient = new QueryClient({
-    //** query cache will fetch data and store it and when called it will get the result from stored cache this improves performance */
     queryCache: new QueryCache({
-      onError: (error: unknown) => ResponseModelHelper(error),
+      onError: (error: unknown) => ResponseModelHelper(error as ErrorResponse, router.push),
     }),
     defaultOptions: {
       queries: {
@@ -18,10 +19,7 @@ const ReactQueryProvider = ({ children }: ReactQueryProviderProps) => {
     },
   });
 
-  return (
-    // ** children is the component that will be wrapped by the QueryClientProvider
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 
 export default ReactQueryProvider;

@@ -1,13 +1,17 @@
 import { Card } from '@/components/ui/card';
 import Image from 'next/image';
+import { useMemo } from 'react';
 import { CartItem } from '~/src/interfaces/cart';
+import { calculateCartTotal } from '~/src/lib/utils';
 
 interface OrderSummaryProps {
   cart: CartItem[];
 }
 
 export const OrderSummary = ({ cart }: OrderSummaryProps) => {
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const calculateTotal = useMemo(() => {
+    return calculateCartTotal(cart);
+  }, [cart]);
 
   return (
     <Card className='p-6 lg:order-2'>
@@ -39,7 +43,7 @@ export const OrderSummary = ({ cart }: OrderSummaryProps) => {
         <div className='space-y-2 pt-4'>
           <div className='flex justify-between text-lg font-bold pt-2'>
             <span>Total</span>
-            <span>${total.toFixed(2)}</span>
+            <span>${calculateTotal.toFixed(2)}</span>
           </div>
         </div>
       </div>
