@@ -21,8 +21,6 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [cachedOrders, setCachedOrders] = useState<Order[]>([]);
 
-  console.log('cached Orders:', cachedOrders);
-
   const retrieveOrders = useMemo(() => {
     return () => {
       const orders: Order[] = queryClient

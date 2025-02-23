@@ -1,5 +1,4 @@
-// hooks/useCheckoutLogic.ts
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '~/src/context/CartContext';
 import { CheckoutDto, User } from '~/src/types/app';
@@ -17,8 +16,53 @@ export const useCheckoutLogic = () => {
     name: '',
   });
 
+  // Memoize cart calculations to prevent unnecessary recalculations
+  const cartSummary = useMemo(() => {
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const tax = subtotal * 0.05;
+    const total = subtotal + tax;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+    return {
+      subtotal,
+      tax,
+      total,
+    };
+  }, [cart]);
+
+  // Memoize checkout data preparation
+  const prepareCheckoutData = useCallback((): CheckoutDto => {
+    return {
+      user: userInfo,
+      products: cart.map(item => ({
+        id: item.id,
+        quantity: item.quantity,
+      })),
+      cart: {
+        tax: cartSummary.tax,
+        items: cart.map(item => ({
+          id: item.id,
+          referenceId: item.name, 
+          type: 'PRODUCT',
+          price: {
+            amount: item.price,
+            currency: 'AED'
+          },
+          quantity: item.quantity
+        })),
+        subtotal: {
+          amount: cartSummary.subtotal,
+          currency: 'AED'
+        },
+        total: {
+          amount: cartSummary.total,
+          currency: 'AED'
+        }
+      }
+    };
+  }, [userInfo, cart, cartSummary]);
+
+  // Memoize submit handler to prevent unnecessary recreations
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
   
     // Check if the cart is empty
@@ -32,39 +76,7 @@ export const useCheckoutLogic = () => {
     }
   
     try {
-      // Calculate subtotal and total
-      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      const tax = subtotal * 0.05; // Example tax calculation
-      const total = subtotal + tax;
-
-      const checkoutData: CheckoutDto = {
-        user: userInfo,
-        products: cart.map(item => ({
-          id: item.id,
-          quantity: item.quantity,
-        })),
-        cart: {
-          tax,
-          items: cart.map(item => ({
-            id: item.id,
-            referenceId: item.name, // Ensure this matches your cart item structure
-            type: 'PRODUCT',
-            price: {
-              amount: item.price,
-              currency: 'AED'
-            },
-            quantity: item.quantity
-          })),
-          subtotal: {
-            amount: subtotal,
-            currency: 'AED'
-          },
-          total: {
-            amount: total,
-            currency: 'AED'
-          }
-        }
-      };
+      const checkoutData = prepareCheckoutData();
   
       checkoutMutation.mutate(checkoutData, {
         onSuccess: () => {
@@ -88,12 +100,12 @@ export const useCheckoutLogic = () => {
     } catch (error) {
       console.error('Error:', error);
     }
-  };
+  }, [cart, prepareCheckoutData, checkoutMutation, toast, clearCart, router]);
 
-
-  const handleNameChange = (name: string) => {
+  // Memoize name change handler
+  const handleNameChange = useCallback((name: string) => {
     setUserInfo(prev => ({ ...prev, name }));
-  };
+  }, []);
 
   return {
     cart,

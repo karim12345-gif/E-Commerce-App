@@ -18,14 +18,7 @@ export function ProductPageDetailPresenter({
         <div className='grid md:grid-cols-2 gap-8'>
           <div className='space-y-4'>
             <div className='relative aspect-square overflow-hidden rounded-lg'>
-              <Image
-                src={product.images[selectedImageIndex]}
-                alt={product.name}
-                fill
-                className='object-cover'
-                priority
-                unoptimized
-              />
+              <Image src={product.images[selectedImageIndex]} alt={product.name} fill className='object-cover' priority />
             </div>
 
             <div className='flex gap-4 overflow-x-auto pb-5 px-1'>
@@ -37,7 +30,7 @@ export function ProductPageDetailPresenter({
                     className={`relative w-20 aspect-square rounded-md overflow-hidden flex-shrink-0
                     ${selectedImageIndex === index ? 'ring-2 ring-primary' : ''}`}
                   >
-                    <Image src={image} alt={`Product view ${index + 1}`} fill className='object-cover' unoptimized />
+                    <Image src={image} alt={`Product view ${index + 1}`} fill className='object-cover' />
                   </button>
                 ))}
               </div>

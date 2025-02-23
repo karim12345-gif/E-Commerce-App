@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
@@ -26,7 +26,7 @@ export default function ProductPageDetail() {
   const { data: product, isLoading, error } = useGetProductById(params.productId as string);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = useCallback(async () => {
     if (!product) return;
 
     try {
@@ -53,7 +53,7 @@ export default function ProductPageDetail() {
 
       console.error('Add to cart error:', error);
     }
-  };
+  }, [addToCart, product]);
 
   if (isLoading) {
     return (
