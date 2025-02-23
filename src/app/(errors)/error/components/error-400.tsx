@@ -1,12 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Button } from '~/src/components/ui/buttons/button';
+import { Error400Props } from '~/src/interfaces';
+import { ErrorImage } from './error-image';
 
-const Custom400 = () => {
-  const router = useRouter();
-
+export function Error400({ router }: Error400Props) {
   const handleGoHome = () => {
     router.push('/');
   };
@@ -19,15 +17,7 @@ const Custom400 = () => {
           <h5 className='text-2xl font-medium text-gray-700 mb-2'>Bad Request 👨🏻‍💻</h5>
         </div>
 
-        <div className='mb-6'>
-          <Image
-            src='/images/pages/500.png'
-            alt='500 Internal Server Error'
-            width={300}
-            height={300}
-            className='mx-auto mb-8'
-          />
-        </div>
+        <ErrorImage src='/images/pages/500.png' alt='400 Bad Request Error' />
 
         <div className='space-x-4 mt-2 justify-center items-center'>
           <Button onClick={handleGoHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
@@ -37,6 +27,4 @@ const Custom400 = () => {
       </div>
     </div>
   );
-};
-
-export default Custom400;
+}

@@ -1,4 +1,4 @@
-import { Product } from "../types/app";
+import {  Product } from "../types/app";
 
 export interface ProductPageDetailPresenterProps {
     product: Product;

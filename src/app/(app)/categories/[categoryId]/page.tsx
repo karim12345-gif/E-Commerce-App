@@ -1,11 +1,19 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { Button } from '~/src/components/ui/buttons/button';
 import { useParams, useRouter } from 'next/navigation';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
 import { useGetCategoryById } from '~/src/services/hooks/Categories';
-import { CategoryHeader, ProductCategoryList } from '~/src/components/Categories';
+
+const CategoryHeader = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoryHeader), {
+  ssr: false,
+});
+
+const ProductCategoryList = dynamic(() => import('~/src/components/Categories').then(mod => mod.ProductCategoryList), {
+  ssr: false,
+});
 
 export default function CategoryDetailPage() {
   const params = useParams();
@@ -49,7 +57,7 @@ export default function CategoryDetailPage() {
   }
 
   // Filter products for this category
-  const categoryProducts = products.data.filter(product => product.categories?.includes(category.slug));
+  const categoryProducts = products.data.filter(product => product.categories?.includes(category.slug ?? ''));
 
   return (
     <div className='container mx-auto py-8 px-4'>

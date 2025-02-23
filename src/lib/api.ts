@@ -169,10 +169,10 @@ function createOrder(id: number, items: CheckoutItem[], products: Product[], use
 
 // bootstrap
 (async () => {
-  data.users;
-  data.categories;
-  data.products;
-  data.orders;
+  // Check if data exists
+  if (!data.users || !data.categories || !data.products || !data.orders) {
+    throw new Error('Missing required data');
+  }
 
   if (data.orders.length === 0) {
     await checkout(
@@ -187,3 +187,24 @@ function createOrder(id: number, items: CheckoutItem[], products: Product[], use
       });
   }
 })();
+
+// // bootstrap
+// (async () => {
+//   data.users;
+//   data.categories;
+//   data.products;
+//   data.orders;
+
+//   if (data.orders.length === 0) {
+//     await checkout(
+//       data.users.at(0)!,
+//       data.products.slice(0, 3).map(product => ({ id: product.id })),
+//     )
+//       .then(() => {
+//         console.info('DB: initial order created');
+//       })
+//       .catch(error => {
+//         console.error('DB: failed to create initial order', error);
+//       });
+//   }
+// })();

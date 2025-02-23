@@ -12,7 +12,7 @@ export type Product = {
   price: Price;
   images: string[];
   categories: string[];
-  slug:string;
+  slug?:string;
 };
 
 export type Category = {

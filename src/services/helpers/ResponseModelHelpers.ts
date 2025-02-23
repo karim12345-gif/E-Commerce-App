@@ -18,10 +18,9 @@ export const isResponseModel = <T>(obj: unknown): obj is ResponseModel<T> => {
 
 
 export const ResponseModelHelper = (error: ErrorResponse, push: (path: string) => void) => {
-
   // Network error or no response
   if (!error.response) {
-    push('/500');
+    push('/error?type=500');
     return;
   }
 
@@ -29,15 +28,16 @@ export const ResponseModelHelper = (error: ErrorResponse, push: (path: string) =
 
   switch (status) {
     case 500:
-      push('/500');
+      push('/error?type=500');
       break;
     case 404:
-      push('/404');
+      push('/error?type=404');
       break;
     case 400:
-      push('/400');
+      push('/error?type=400');
       break;
     default:
-      push('/500'); // Fallback for unexpected errors
+      push('/error?type=500'); // Fallback for unexpected errors
   }
 };
+

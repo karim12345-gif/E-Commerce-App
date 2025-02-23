@@ -3,7 +3,14 @@
 import { useRouter } from 'next/navigation';
 import { useCheckoutLogic } from './hooks/useCheckoutLogic';
 import { ButtonIconLeft } from '~/src/components/ui/buttons/ButtonIcon';
-import { OrderSummary, UserForm } from '~/src/components/checkout';
+import dynamic from 'next/dynamic';
+
+const OrderSummary = dynamic(() => import('~/src/components/checkout').then(mod => mod.OrderSummary), {
+  ssr: false,
+});
+const UserForm = dynamic(() => import('~/src/components/checkout').then(mod => mod.UserForm), {
+  ssr: false,
+});
 
 export default function CheckoutPage() {
   const router = useRouter();

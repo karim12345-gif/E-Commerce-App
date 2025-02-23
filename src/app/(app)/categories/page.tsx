@@ -1,16 +1,23 @@
-// this is the listing page of all categories
 'use client';
 
-import { CategoriesList, CategoriesSkeleton } from '~/src/components/Categories';
 import { ButtonIconLeft } from '~/src/components/ui/buttons/ButtonIcon';
 import { useGetListOfCategories } from '~/src/services/hooks/Categories/useGetListOfCategories';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+// Lazy import components
+const CategoriesList = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoriesList), {
+  ssr: false,
+});
+
+const CategoriesSkeleton = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoriesSkeleton), {
+  ssr: false,
+});
 
 export default function CategoriesPage() {
   const router = useRouter();
   const { data: categories, isLoading, isError } = useGetListOfCategories();
 
-  // ** it redundant put it in utility folder and call it from there better --> later
   const onBack = () => {
     router.back();
   };

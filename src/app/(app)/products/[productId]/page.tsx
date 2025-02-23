@@ -1,14 +1,22 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { useGetProductById } from '~/src/services/hooks/Products';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
+import dynamic from 'next/dynamic';
 import { useCart } from '~/src/context';
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useToast } from '~/src/hooks/use-toast';
-import Custom404 from '~/src/app/404/page';
-import { ProductPageDetailPresenter } from '~/src/components/Product';
+import { useGetProductById } from '~/src/services/hooks/Products';
+import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
+import Custom404 from '~/src/app/(errors)/error/components/error-404';
+
+const ProductPageDetailPresenter = dynamic(
+  () => import('~/src/components/Product').then(mod => mod.ProductPageDetailPresenter),
+  {
+    ssr: false,
+    loading: () => null,
+  },
+);
 
 export default function ProductPageDetail() {
   const params = useParams();

@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Button } from '~/src/components/ui/buttons/button';
+import { ErrorImage } from './error-image';
 
 const Custom404 = () => {
   const router = useRouter();
@@ -21,9 +21,7 @@ const Custom404 = () => {
         </div>
 
         {/* Error Image */}
-        <div className='mb-6'>
-          <Image src='/images/pages/404.png' alt='404 Page Not Found' width={200} height={200} className='mx-auto mb-8' />
-        </div>
+        <ErrorImage src='/images/pages/404.png' alt='404 Page Not Found' width={200} height={200} />
 
         {/* Back to Home Button */}
         <Button onClick={handleGoHome} variant='default' size='default' className='px-6 py-3 bg-blue-600 text-white'>

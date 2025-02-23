@@ -5,7 +5,7 @@ import { ReactQueryProviderProps } from '../interfaces';
 import { ErrorResponse } from '../types/app';
 
 const ReactQueryProvider = ({ children }: ReactQueryProviderProps) => {
-  const router = useRouter(); // ✅ Use inside component
+  const router = useRouter();
 
   const queryClient = new QueryClient({
     queryCache: new QueryCache({

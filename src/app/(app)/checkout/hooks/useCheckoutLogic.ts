@@ -17,51 +17,6 @@ export const useCheckoutLogic = () => {
     name: '',
   });
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  
-  //   // Check if the cart is empty
-  //   if (cart.length === 0) {
-  //     toast({
-  //       title: 'Error',
-  //       description: `No items in your cart`,
-  //       variant: 'destructive', 
-  //     });
-  //     return; 
-  //   }
-  
-  //   try {
-  //     const checkoutData: CheckoutDto = {
-  //       user: userInfo,
-  //       products: cart.map(item => ({
-  //         id: item.id,
-  //         quantity: item.quantity,
-  //       })),
-  //     };
-  
-  //     checkoutMutation.mutate(checkoutData, {
-  //       onSuccess: () => {
-  //         toast({
-  //           title: 'Success',
-  //           description: `Checkout has been submitted`,
-  //           variant: 'default',
-  //         });
-  //         clearCart();
-  //         router.push('/checkout/success');
-  //       },
-  //       onError: () => {
-  //         toast({
-  //           title: 'Error',
-  //           description: 'Failed to place order',
-  //           variant: 'destructive',
-  //         });
-  //       }
-  //     });
-      
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { Component } from '@/types/react';
 
 type ChildrenType = Component.Children;
@@ -20,6 +19,9 @@ type ErrorType = {
   reset: () => void;
 };
 
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
 /** Common wrapper component props */
 export interface ContainerProps extends ChildrenType {}
 
