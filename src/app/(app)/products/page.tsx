@@ -1,38 +1,57 @@
-'use client';
-
-import { useGetListOfProducts } from '~/src/services/hooks/Products';
+import { ProductCard } from '~/src/components/Product';
 import { Product } from '~/src/types/app';
-import dynamic from 'next/dynamic';
 
-// Dynamically import components
-const ProductCard = dynamic(() => import('~/src/components/Product').then(mod => mod.ProductCard), {
-  ssr: false,
-  loading: () => null,
-});
+async function getProducts() {
+  try {
+    // Since we're running on the server during build, use the full URL
+    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+    const host = process.env.VERCEL_URL || 'localhost:3000';
+    const url = `${protocol}://${host}/api/products`;
 
-const ProductPageSkeleton = dynamic(
-  () => import('~/src/components/Product/ProductPageSkeleton').then(mod => mod.ProductPageSkeleton),
-  {
-    ssr: false,
-  },
-);
+    console.log('Fetching products from:', url);
 
-export default function ProductsPage() {
-  const { data: listOfProducts, isLoading, isFetching } = useGetListOfProducts();
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch products: ${response.status}`);
+    }
 
-  // Show skeleton while loading or fetching
-  if (isLoading || isFetching || !listOfProducts?.data) {
-    return <ProductPageSkeleton />;
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    // Return empty data instead of throwing
+    return { data: [] };
   }
+}
+
+export default async function ProductsPage() {
+  const { data: products = [] } = await getProducts();
 
   return (
     <div className='container mx-auto p-6'>
-      <h1 className='text-2xl font-bold mb-6'>Products Page:</h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {listOfProducts.data.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <h1 className='text-2xl font-bold mb-6'>Products Page</h1>
+      {products.length === 0 ? (
+        <div className='text-center py-10'>
+          <p className='text-lg'>No products available.</p>
+        </div>
+      ) : (
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {products.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </div>
   );
+}
+
+// Static generation configuration
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
+
+export async function generateMetadata() {
+  return {
+    title: 'Products Page',
+    description: 'View our collection of products',
+  };
 }

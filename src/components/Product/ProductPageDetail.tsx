@@ -1,19 +1,18 @@
 import Image from 'next/image';
 import { Button } from '~/src/components/ui/buttons/button';
-import { ButtonIconLeft } from '../ui/buttons/ButtonIcon';
 import { ProductPageDetailPresenterProps } from '~/src/interfaces';
+import { BackButton } from '../ui/buttons';
 
 export function ProductPageDetailPresenter({
   product,
   selectedImageIndex,
   onImageSelect,
-  onBack,
   onAddToCart,
 }: ProductPageDetailPresenterProps) {
   return (
     <div className='min-h-screen flex items-center justify-center mt-10'>
       <div className='container mx-auto p-6'>
-        <ButtonIconLeft variant='ghost' onClick={onBack} />
+        <BackButton />
 
         <div className='grid md:grid-cols-2 gap-8'>
           <div className='space-y-4'>

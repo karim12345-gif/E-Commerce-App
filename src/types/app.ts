@@ -79,4 +79,16 @@ export interface ErrorResponse {
 }
 
 
+
+export type ButtonIconLeftProps = {
+  onClick: () => void;
+  variant?: 'ghost' | 'default' | 'outline';
+  className?: string;
+};
  
+
+export type BackButtonProps = {
+  path?: string;
+  variant?: 'ghost' | 'default' | 'outline';
+  className?: string;
+};

@@ -3,7 +3,13 @@
 import Link from 'next/link';
 import { Button } from '~/src/components/ui/buttons/button';
 import { Home, List, ShoppingBag } from 'lucide-react';
-import { CartSheet } from '../../Cart';
+import dynamic from 'next/dynamic';
+
+
+const CartSheet = dynamic(() => import('../../Cart').then(mod => mod.CartSheet), {
+  ssr: false,
+});
+
 
 export function NavigationBar() {
   return (

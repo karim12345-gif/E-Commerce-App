@@ -4,6 +4,5 @@ export interface ProductPageDetailPresenterProps {
     product: Product;
     selectedImageIndex: number;
     onImageSelect: (index: number) => void;
-    onBack: () => void;
     onAddToCart: () => void;
   }

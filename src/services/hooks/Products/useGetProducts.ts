@@ -25,5 +25,7 @@ export const useGetListOfProducts = () => {
   return useQuery({
     queryKey: ['GetListOfProducts'],
     queryFn: () => GetListOfProducts(),
+       // Optional: enable fallback for client-side rendering
+    enabled: typeof window !== 'undefined'
   })
 }

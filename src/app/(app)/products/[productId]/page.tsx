@@ -4,7 +4,6 @@ import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 import { useToast } from '~/src/hooks/use-toast';
 import { useGetProductById } from '~/src/services/hooks/Products';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
@@ -20,7 +19,6 @@ const ProductPageDetailPresenter = dynamic(
 
 export default function ProductPageDetail() {
   const params = useParams();
-  const router = useRouter();
   const { toast } = useToast();
   const { addToCart } = useCart();
   const { data: product, isLoading, error } = useGetProductById(params.productId as string);
@@ -81,7 +79,6 @@ export default function ProductPageDetail() {
       product={product}
       selectedImageIndex={selectedImageIndex}
       onImageSelect={setSelectedImageIndex}
-      onBack={() => router.back()}
       onAddToCart={handleAddToCart}
     />
   );
