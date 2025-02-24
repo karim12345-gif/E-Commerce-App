@@ -5,9 +5,9 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true, // ✅ Enable global `expect`
-    environment: 'jsdom', // ✅ Use jsdom for DOM testing
-    setupFiles: './src/setupTests.ts', // ✅ Load Jest matchers
+    globals: true, //  Enable global `expect`
+    environment: 'jsdom', // Use jsdom for DOM testing
+    setupFiles: './src/__tests__/setupTests.ts', //  Load Jest matchers
   },
   resolve: {
     alias: {
