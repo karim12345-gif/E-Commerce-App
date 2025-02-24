@@ -51,7 +51,7 @@ export default function ProductPageDetail() {
 
       console.error('Add to cart error:', error);
     }
-  }, [addToCart, product]);
+  }, [addToCart, product, toast]);
 
   if (isLoading) {
     return (

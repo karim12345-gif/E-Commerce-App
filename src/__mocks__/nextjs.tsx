@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 // Types for the Image component props
@@ -20,7 +21,7 @@ export type LinkProps = {
 };
 
 // Mocking the implementation of Next.js Image component
-export const mockImage = (props: ImageProps) => <img {...props} data-testid='product-image' />;
+export const mockImage = (props: ImageProps) => <Image {...props} data-testid='product-image' alt='Product image' />;
 
 export const mockLink = ({ children, href, className }: LinkProps) => (
   <a href={href} className={className}>

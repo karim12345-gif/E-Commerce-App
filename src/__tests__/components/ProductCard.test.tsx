@@ -1,6 +1,6 @@
 vi.mock('next/image', () => ({
   default: ({ src, alt, className, ...props }: ImageProps) => (
-    <img src={src} alt={alt} className={className} {...props} data-testid='product-image' />
+    <Image src={src} alt={alt} className={className} {...props} data-testid='product-image' />
   ),
 }));
 
@@ -26,6 +26,7 @@ import { ProductCard } from '~/src/components/Product';
 import { mockProduct } from '../../__mocks__/mockData';
 import { ImageProps, LinkProps } from '~/src/__mocks__/nextjs';
 import { mockCartContext } from '~/src/__mocks__/content';
+import Image from 'next/image';
 
 describe('ProductCard', () => {
   beforeEach(() => {

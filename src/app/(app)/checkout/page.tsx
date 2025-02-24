@@ -2,7 +2,10 @@
 
 import dynamic from 'next/dynamic';
 import { useCheckoutLogic } from './hooks/useCheckoutLogic';
-import { BackButton } from '~/src/components/ui/buttons';
+
+const BackButton = dynamic(() => import('~/src/components/ui/buttons').then(mod => mod.BackButton), {
+  ssr: false,
+});
 
 const OrderSummary = dynamic(() => import('~/src/components/checkout').then(mod => mod.OrderSummary), {
   ssr: false,

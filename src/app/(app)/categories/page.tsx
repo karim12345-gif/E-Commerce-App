@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { BackButton } from '~/src/components/ui/buttons';
 import { useGetListOfCategories } from '~/src/services/hooks/Categories/useGetListOfCategories';
 
 // Lazy import components
@@ -10,6 +9,10 @@ const CategoriesList = dynamic(() => import('~/src/components/Categories').then(
 });
 
 const CategoriesSkeleton = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoriesSkeleton), {
+  ssr: false,
+});
+
+const BackButton = dynamic(() => import('~/src/components/ui/buttons').then(mod => mod.BackButton), {
   ssr: false,
 });
 

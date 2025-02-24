@@ -121,7 +121,7 @@ export function CartSheet() {
             </div>
             <div className='mt-4 border-t pt-4'>
               <div className='flex justify-between mb-4'>
-                <span className='font-semibold text-sm sm:text-base'>Total</span>
+                <span className='font-semibold text-sm sm:text-base'>Total:</span>
                 <span className='text-sm sm:text-base'>${calculateTotal.toFixed(2)}</span>
               </div>
               <Link href='/checkout'>

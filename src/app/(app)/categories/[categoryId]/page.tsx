@@ -31,7 +31,7 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // If category is not found, show error
+  // If category is not found, show error ( could create a septate component and call it better )
   if (!category) {
     return (
       <div className='container mx-auto p-6'>
@@ -44,7 +44,7 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // Make sure we have products data
+  // Make sure we have products data -- also here could be created and be reused in the future if needed
   if (!products?.data || products.data.length === 0) {
     return (
       <div className='flex justify-center items-center min-h-[50vh]'>

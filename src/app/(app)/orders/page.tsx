@@ -5,7 +5,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Order } from '~/src/types/app';
 import { ShoppingBag } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import { OrderNotFound } from '~/src/components/Orders';
 
 // Lazy load components
 const OrderCard = dynamic(() => import('~/src/components/Orders').then(mod => mod.OrderCard), {
@@ -13,6 +12,10 @@ const OrderCard = dynamic(() => import('~/src/components/Orders').then(mod => mo
 });
 
 const OrderDetailsModal = dynamic(() => import('~/src/components/Orders').then(mod => mod.OrderDetailsModal), {
+  ssr: false,
+});
+
+const OrderNotFound = dynamic(() => import('~/src/components/Orders').then(mod => mod.OrderNotFound), {
   ssr: false,
 });
 

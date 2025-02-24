@@ -2,7 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
-import { ErrorContent } from './components/error-content';
+import dynamic from 'next/dynamic';
+
+const ErrorContent = dynamic(() => import('./components/error-content').then(mod => mod.ErrorContent), {
+  ssr: false,
+});
 
 export default function ErrorPage() {
   const router = useRouter();

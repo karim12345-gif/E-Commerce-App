@@ -12,5 +12,12 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
     router: AppRouterInstance;
   }
 
+  interface ErrorImageProps {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  }
 
-  export type {Error400Props,Error500Props, ErrorContentProps }
+
+  export type {Error400Props,Error500Props, ErrorContentProps, ErrorImageProps }

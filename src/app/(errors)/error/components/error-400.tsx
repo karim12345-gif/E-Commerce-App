@@ -5,6 +5,7 @@ import { Error400Props } from '~/src/interfaces';
 import { ErrorImage } from './error-image';
 
 export function Error400({ router }: Error400Props) {
+  // buttons in all error paged could be removed and we can use the BackButton that was created
   const handleGoHome = () => {
     router.push('/');
   };
