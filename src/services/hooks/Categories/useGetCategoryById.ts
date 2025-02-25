@@ -34,6 +34,7 @@ const GetCategoryById = async (id?: string): Promise<Product | null> => {
 
     return null;
   } catch (error) {
+    
     throw error;
   }
 };

@@ -3,6 +3,10 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
  interface Error400Props {
     router: AppRouterInstance;
   }
+
+  interface Error404Props {
+    router?: AppRouterInstance;
+  }
   
  interface Error500Props {
     router: AppRouterInstance;
@@ -20,4 +24,4 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
   }
 
 
-  export type {Error400Props,Error500Props, ErrorContentProps, ErrorImageProps }
+  export type {Error400Props,Error500Props, ErrorContentProps, ErrorImageProps, Error404Props }

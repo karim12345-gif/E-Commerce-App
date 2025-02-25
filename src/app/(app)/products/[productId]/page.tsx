@@ -5,16 +5,16 @@ import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
 import { useState, useCallback } from 'react';
 import { useToast } from '~/src/hooks/use-toast';
+import { Error404 } from '~/src/app/(errors)/error/components';
 import { useGetProductById } from '~/src/services/hooks/Products';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
-import Custom404 from '~/src/app/(errors)/error/components/error-404';
 
 // Dynamically import the ProductPageDetailPresenter component with SSR disabled
 const ProductPageDetailPresenter = dynamic(
   () => import('~/src/components/Product').then(mod => mod.ProductPageDetailPresenter),
   {
     ssr: false,
-    loading: () => null, // Displays nothing while the component is loading
+    loading: () => null,
   },
 );
 
@@ -25,7 +25,7 @@ export default function ProductPageDetail() {
   const { addToCart } = useCart();
 
   // Fetch product details based on the productId from URL params
-  const { data: product, isLoading, error } = useGetProductById(params.productId as string);
+  const { data: product, isLoading } = useGetProductById(params.productId as string);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const handleAddToCart = useCallback(async () => {
@@ -67,10 +67,10 @@ export default function ProductPageDetail() {
   }
 
   // Handle error state  if product is not found
-  if (error || !product) {
+  if (!product) {
     return (
       <div>
-        <Custom404 />
+        <Error404 />
       </div>
     );
   }

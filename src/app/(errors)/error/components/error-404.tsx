@@ -1,14 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
+import { Error404Props } from '~/src/interfaces/error';
 
-const Custom404 = () => {
-  const router = useRouter();
-
+export const Error404 = ({ router }: Error404Props) => {
+  // buttons in all error paged could be removed and we can use the BackButton that was created
   const handleGoHome = () => {
-    router.push('/');
+    router?.push('/');
   };
 
   return (
@@ -32,4 +31,4 @@ const Custom404 = () => {
   );
 };
 
-export default Custom404;
+export default Error404;

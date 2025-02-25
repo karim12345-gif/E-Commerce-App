@@ -1,11 +1,11 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useParams, useRouter } from 'next/navigation';
-import { Button } from '~/src/components/ui/buttons/button';
+import { useParams } from 'next/navigation';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
 import { useGetCategoryById } from '~/src/services/hooks/Categories';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
+import { Error404 } from '~/src/app/(errors)/error/components';
 
 // lazy component
 const CategoryHeader = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoryHeader), {
@@ -19,8 +19,6 @@ const ProductCategoryList = dynamic(() => import('~/src/components/Categories').
 export default function CategoryDetailPage() {
   // Get category ID from the URL parameters
   const params = useParams();
-  // router for navigation
-  const router = useRouter();
   // Hooks
   const { data: products, isLoading: productsLoading } = useGetListOfProducts();
   const { data: category, isLoading: categoryLoading } = useGetCategoryById(params.categoryId as string);
@@ -37,16 +35,11 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // Handle case where the category doesn't exist
-  // !! TODO: Consider creating a reusable NotFound component
+  // Handle error state  if product is not found
   if (!category) {
     return (
-      <div className='container mx-auto p-6'>
-        <div className='text-center space-y-4'>
-          <h1 className='text-2xl font-bold'>Category Not Found</h1>
-          <p className='text-gray-600'>The category you&apos;re looking for doesn&apos;t exist.</p>
-          <Button onClick={() => router.push('/categories')}>Return to Categories</Button>
-        </div>
+      <div>
+        <Error404 />
       </div>
     );
   }
@@ -55,7 +48,7 @@ export default function CategoryDetailPage() {
   // !! TODO: Consider creating a reusable EmptyState component
   if (!products?.data || products.data.length === 0) {
     return (
-      <div className='flex justify-center items-center min-h-[50vh]'>
+      <div className='flex justify-center items-center mt-10 min-h-[50vh]'>
         <div className='text-center text-gray-600'>
           <p className='text-xl mb-4'>No products available.</p>
           <p className='text-sm text-gray-500'>Check back later or explore other categories.</p>
