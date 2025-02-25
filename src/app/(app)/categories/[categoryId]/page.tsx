@@ -1,12 +1,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Button } from '~/src/components/ui/buttons/button';
 import { useParams, useRouter } from 'next/navigation';
-import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
+import { Button } from '~/src/components/ui/buttons/button';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
 import { useGetCategoryById } from '~/src/services/hooks/Categories';
+import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 
+// lazy component
 const CategoryHeader = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoryHeader), {
   ssr: false,
 });
@@ -16,10 +17,15 @@ const ProductCategoryList = dynamic(() => import('~/src/components/Categories').
 });
 
 export default function CategoryDetailPage() {
+  // Get category ID from the URL parameters
   const params = useParams();
+  // router for navigation
   const router = useRouter();
+  // Hooks
   const { data: products, isLoading: productsLoading } = useGetListOfProducts();
   const { data: category, isLoading: categoryLoading } = useGetCategoryById(params.categoryId as string);
+
+  // Combined loading state to show a single loader for both data fetches
   const isLoading = categoryLoading || productsLoading;
 
   // Show loading state
@@ -31,7 +37,8 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // If category is not found, show error ( could create a septate component and call it better )
+  // Handle case where the category doesn't exist
+  // !! TODO: Consider creating a reusable NotFound component
   if (!category) {
     return (
       <div className='container mx-auto p-6'>
@@ -44,7 +51,8 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // Make sure we have products data -- also here could be created and be reused in the future if needed
+  // Handle case where there are no products in the database
+  // !! TODO: Consider creating a reusable EmptyState component
   if (!products?.data || products.data.length === 0) {
     return (
       <div className='flex justify-center items-center min-h-[50vh]'>
@@ -56,7 +64,7 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // Filter products for this category
+  // Filter the product list to only show products belonging to the current category
   const categoryProducts = products.data.filter(product => product.categories?.includes(category.slug ?? ''));
 
   return (

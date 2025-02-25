@@ -17,8 +17,10 @@ const BackButton = dynamic(() => import('~/src/components/ui/buttons').then(mod 
 });
 
 export default function CategoriesPage() {
+  // Hook
   const { data: categories, isLoading, isError } = useGetListOfCategories();
 
+  // if loading show skeleton
   if (isLoading) {
     return <CategoriesSkeleton />;
   }

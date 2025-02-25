@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { ButtonIconLeft } from '@/components/ui/buttons/ButtonIcon';
 import { BackButtonProps } from '~/src/types/app';
 
-
-
 const BackButton = ({ 
   path, 
   variant = 'ghost',

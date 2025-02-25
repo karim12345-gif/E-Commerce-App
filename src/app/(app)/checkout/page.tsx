@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useCheckoutLogic } from './hooks/useCheckoutLogic';
 
+// Lazy load components
 const BackButton = dynamic(() => import('~/src/components/ui/buttons').then(mod => mod.BackButton), {
   ssr: false,
 });
@@ -15,6 +16,7 @@ const UserForm = dynamic(() => import('~/src/components/checkout').then(mod => m
 });
 
 export default function CheckoutPage() {
+  // Hook
   const { cart, userInfo, isProcessing, handleSubmit, handleNameChange } = useCheckoutLogic();
 
   return (

@@ -48,6 +48,12 @@ I have decided to use vitest because it provides better support and integration 
 ### 5- Toast
 
 To show success/error popup messages 
+
+### 6- Performance Analysis
+
+I have installed analyze to check the application's performance. You can run the following command to analyze the bundle size and optimize performance:
+
+npm run analyze
 ****
 
 

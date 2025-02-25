@@ -1,4 +1,3 @@
-// components/categories/CategoriesSkeleton.tsx
 import { Card } from '~/src/components/ui/card/card';
 
 export function CategoriesSkeleton() {

@@ -1,26 +1,30 @@
 'use client';
 
-import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
+import { useState, useCallback } from 'react';
 import { useToast } from '~/src/hooks/use-toast';
 import { useGetProductById } from '~/src/services/hooks/Products';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 import Custom404 from '~/src/app/(errors)/error/components/error-404';
 
+// Dynamically import the ProductPageDetailPresenter component with SSR disabled
 const ProductPageDetailPresenter = dynamic(
   () => import('~/src/components/Product').then(mod => mod.ProductPageDetailPresenter),
   {
     ssr: false,
-    loading: () => null,
+    loading: () => null, // Displays nothing while the component is loading
   },
 );
 
 export default function ProductPageDetail() {
+  // ** Use states
   const params = useParams();
   const { toast } = useToast();
   const { addToCart } = useCart();
+
+  // Fetch product details based on the productId from URL params
   const { data: product, isLoading, error } = useGetProductById(params.productId as string);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -53,6 +57,7 @@ export default function ProductPageDetail() {
     }
   }, [addToCart, product, toast]);
 
+  //** Display loading state while fetching product data */
   if (isLoading) {
     return (
       <div className='container mx-auto p-6 flex justify-center items-center min-h-[50vh]'>
@@ -61,17 +66,13 @@ export default function ProductPageDetail() {
     );
   }
 
-  if (!product) {
+  // Handle error state  if product is not found
+  if (error || !product) {
     return (
       <div>
         <Custom404 />
       </div>
     );
-  }
-
-  if (error) {
-    // This will trigger the nearest error.tsx
-    throw error;
   }
 
   return (

@@ -9,6 +9,8 @@ const postCheckout = async (data: CheckoutDto) => {
     CheckoutApi.postCheckoutOrder(),
     data,
   )
+
+  console.log("response",response)
   return response.data.body
 }
 
@@ -31,6 +33,8 @@ export const usePostCheckoutMutation = () => {
         products: checkoutData.products,
         timestamp: new Date().toISOString(),
         status: 'COMPLETED',
+        total: checkoutData.cart?.total.amount
+        
         
       }
 
@@ -42,16 +46,3 @@ export const usePostCheckoutMutation = () => {
   })
 }
 
-
-
-// status: 'COMPLETED',
-// subtotal: {
-// amount: checkoutData.products.reduce((sum, item) => 
-//  sum + (item.quantity || 1) * 10, 0), 
-// currency: 'AED'
-// },
-// total: {
-// amount: checkoutData.products.reduce((sum, item) => 
-//  sum + (item.quantity || 1) * 10, 0), 
-// currency: 'AED'
-// }

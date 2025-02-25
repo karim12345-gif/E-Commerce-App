@@ -8,7 +8,9 @@ interface OrderSummaryProps {
   cart: CartItem[];
 }
 
+// Order summary component
 export const OrderSummary = ({ cart }: OrderSummaryProps) => {
+  // calcaulting the total amount
   const calculateTotal = useMemo(() => {
     return calculateCartTotal(cart);
   }, [cart]);

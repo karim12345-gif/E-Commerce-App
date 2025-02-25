@@ -59,6 +59,7 @@ export type Order = {
   cart: Cart;
   status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
   timestamp?: Date;
+  total:number
 };
 
 export type CheckoutDto = {
@@ -66,8 +67,6 @@ export type CheckoutDto = {
   products: CheckoutItem[];
   cart?: Cart;
 };
-
-
 
 export interface ErrorResponse {
   response?: {

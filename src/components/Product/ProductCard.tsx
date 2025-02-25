@@ -16,6 +16,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
 
+  // Memoize the image URL and priceInfo to prevent recalculation on re-renders
   const imageUrl = useMemo(() => {
     return Array.isArray(product.images) ? product.images[0] : product.images;
   }, [product.images]);
@@ -24,6 +25,7 @@ export function ProductCard({ product }: ProductCardProps) {
     return Array.isArray(product.price) ? product.price[0] : product.price;
   }, [product.price]);
 
+  // adding items to cart
   const handleAddToCart = async () => {
     try {
       await addToCart({

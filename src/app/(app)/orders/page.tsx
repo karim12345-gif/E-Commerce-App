@@ -20,17 +20,27 @@ const OrderNotFound = dynamic(() => import('~/src/components/Orders').then(mod =
 });
 
 export default function OrdersPage() {
+  // Access React Query's cache
   const queryClient = useQueryClient();
+
+  // use states
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [cachedOrders, setCachedOrders] = useState<Order[]>([]);
 
+  /// memoized the retrieved orders
   const retrieveOrders = useMemo(() => {
     return () => {
+      // Get all cached orders from React Query's query cache
       const orders: Order[] = queryClient
         .getQueryCache()
         .getAll()
+        // Filter queries that have the 'orders' key and contain data
         .filter(query => query.queryKey[0] === 'orders' && query.state.data)
+        // Extract the actual order data from each query
         .map(query => query.state.data as Order)
+        // Sort orders by timestamp, most recent first
+        // Convert timestamps to numbers for comparison, defaulting to 0 if undefined
+        // Descending order (newest first)
         .sort((a, b) => {
           const dateA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
           const dateB = b.timestamp ? new Date(b.timestamp).getTime() : 0;

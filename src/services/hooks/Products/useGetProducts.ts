@@ -1,4 +1,3 @@
-// services/hooks/Products.ts
 import axios, { AxiosResponse } from "axios"
 import { ProductsApi } from "../../api"
 import { useQuery } from "@tanstack/react-query"
