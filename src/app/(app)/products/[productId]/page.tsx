@@ -5,7 +5,6 @@ import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
 import { useState, useCallback } from 'react';
 import { useToast } from '~/src/hooks/use-toast';
-import { Error404 } from '~/src/app/(errors)/error/components';
 import { useGetProductById } from '~/src/services/hooks/Products';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
 
@@ -66,21 +65,16 @@ export default function ProductPageDetail() {
     );
   }
 
-  // Handle error state  if product is not found
-  if (!product) {
-    return (
-      <div>
-        <Error404 />
-      </div>
-    );
-  }
-
   return (
-    <ProductPageDetailPresenter
-      product={product}
-      selectedImageIndex={selectedImageIndex}
-      onImageSelect={setSelectedImageIndex}
-      onAddToCart={handleAddToCart}
-    />
+    <>
+      {product && (
+        <ProductPageDetailPresenter
+          product={product}
+          selectedImageIndex={selectedImageIndex}
+          onImageSelect={setSelectedImageIndex}
+          onAddToCart={handleAddToCart}
+        />
+      )}
+    </>
   );
 }

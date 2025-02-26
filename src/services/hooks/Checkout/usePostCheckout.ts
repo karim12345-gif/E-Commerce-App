@@ -10,7 +10,7 @@ const postCheckout = async (data: CheckoutDto) => {
     data,
   )
 
-  console.log("response",response)
+  // console.log("response",response)
   return response.data.body
 }
 
@@ -30,13 +30,16 @@ export const usePostCheckoutMutation = () => {
       const orderData = {
         id: orderId,
         user: checkoutData.user,
-        products: checkoutData.products,
-        timestamp: new Date().toISOString(),
         status: 'COMPLETED',
-        total: checkoutData.cart?.total.amount
-        
-        
-      }
+        timestamp: new Date(),
+        cart: {
+          tax: checkoutData.cart?.tax || 0.19,
+          items: checkoutData.cart?.items || [],
+          subtotal: checkoutData.cart?.subtotal || { amount: 0, currency: 'USD' },
+          total: checkoutData.cart?.total || { amount: 0, currency: 'USD' }
+        }
+      };
+      
 
       // Store in React Query cache
       queryClient.setQueryData(['orders', orderId], orderData)

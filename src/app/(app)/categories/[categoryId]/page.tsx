@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
 import { useGetCategoryById } from '~/src/services/hooks/Categories';
 import { ButtonLoading } from '~/src/components/ui/buttons/buttonLoader';
-import { Error404 } from '~/src/app/(errors)/error/components';
 
 // lazy component
 const CategoryHeader = dynamic(() => import('~/src/components/Categories').then(mod => mod.CategoryHeader), {
@@ -35,15 +34,6 @@ export default function CategoryDetailPage() {
     );
   }
 
-  // Handle error state  if product is not found
-  if (!category) {
-    return (
-      <div>
-        <Error404 />
-      </div>
-    );
-  }
-
   // Handle case where there are no products in the database
   // !! TODO: Consider creating a reusable EmptyState component
   if (!products?.data || products.data.length === 0) {
@@ -58,12 +48,11 @@ export default function CategoryDetailPage() {
   }
 
   // Filter the product list to only show products belonging to the current category
-  const categoryProducts = products.data.filter(product => product.categories?.includes(category.slug ?? ''));
-
+  const categoryProducts = products.data.filter(product => product.categories?.includes(category?.slug ?? ''));
   return (
     <div className='container mx-auto py-8 px-4'>
       {/* Category Header */}
-      <CategoryHeader name={category.name} description={category.description} />
+      {category && <CategoryHeader name={category.name} description={category.description} />}
 
       {/* Products Grid */}
       <ProductCategoryList products={categoryProducts} />

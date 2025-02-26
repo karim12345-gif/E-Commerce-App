@@ -59,7 +59,7 @@ export type Order = {
   cart: Cart;
   status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
   timestamp?: Date;
-  total:number
+  // total:number
 };
 
 export type CheckoutDto = {

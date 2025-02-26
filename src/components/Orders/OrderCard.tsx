@@ -26,7 +26,7 @@ export default function OrderCard({ order, onDetailsClick }: OrderCardProps) {
           </div>
           <div className='flex items-center'>
             <DollarSign className='mr-2 h-5 w-5 text-green-600' />
-            <span className='font-bold'>{order?.total?.toFixed(4)}</span>
+            <span className='font-bold'>{order.cart?.total?.amount?.toFixed(2)}</span>
             <Button variant='ghost' size='icon' onClick={onDetailsClick} className='ml-2'>
               <Info className='h-5 w-5' />
             </Button>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ErrorResponse } from '../types/app';
 import { ReactQueryProviderProps } from '../interfaces';

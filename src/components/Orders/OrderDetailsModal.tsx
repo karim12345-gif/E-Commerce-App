@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/src/components/ui/ca
 import { Button } from '~/src/components/ui/buttons/button';
 import { Order } from '~/src/types/app';
 import { formatDate, getStatusColor } from '~/src/lib/utils';
+import { DollarSign } from 'lucide-react';
 
 interface OrderDetailsModalProps {
   order: Order;
@@ -26,9 +27,6 @@ export default function OrderDetailsModal({ order, onClose }: OrderDetailsModalP
                 <span className='font-semibold'>{order.id}</span>
               </div>
               <div className='flex justify-between'>
-                <span>Product Name:</span>
-              </div>
-              <div className='flex justify-between'>
                 <span>Date:</span>
                 <span>{formatDate(order.timestamp)}</span>
               </div>
@@ -39,7 +37,7 @@ export default function OrderDetailsModal({ order, onClose }: OrderDetailsModalP
               <div className='border-t pt-4'>
                 <h3 className='text-lg font-semibold mb-2'>Items</h3>
                 {order.cart?.items.map(item => (
-                  <div key={item.id} className='flex justify-between py-2 border-b'>
+                  <div key={item.id} className='flex justify-between py-2 '>
                     <span>{item.referenceId}</span>
                     <span>
                       {item.quantity} x {item.price.currency} {item.price.amount.toFixed(2)}
@@ -47,9 +45,20 @@ export default function OrderDetailsModal({ order, onClose }: OrderDetailsModalP
                   </div>
                 ))}
               </div>
-              <div className='flex justify-between font-bold text-lg'>
-                <span>Total:</span>
-                <span>{order?.total?.toFixed(4)}</span>
+
+              <div className='flex justify-between'>
+                <span>Tax:</span>
+                <span className='font-semibold'>{order.cart.tax.toFixed(2)}</span>
+              </div>
+
+              <div className='border-t pt-4'>
+                <div className='flex justify-between font-bold text-lg'>
+                  <span>Total:</span>
+                  <div className='flex items-center'>
+                    <DollarSign className='mr-2 h-5 w-5 text-green-600' />
+                    <span>{order.cart?.total?.amount?.toFixed(2)}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </CardContent>
