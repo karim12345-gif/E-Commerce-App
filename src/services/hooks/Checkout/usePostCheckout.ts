@@ -33,7 +33,7 @@ export const usePostCheckoutMutation = () => {
         status: 'COMPLETED',
         timestamp: new Date(),
         cart: {
-          tax: checkoutData.cart?.tax || 0.19,
+          tax: checkoutData.cart?.tax ,
           items: checkoutData.cart?.items || [],
           subtotal: checkoutData.cart?.subtotal || { amount: 0, currency: 'USD' },
           total: checkoutData.cart?.total || { amount: 0, currency: 'USD' }

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params: { categoryId } }: { pa
       data: category,
     },
     {
-      status: 400,
+      status: 200,
     },
   );
 }
