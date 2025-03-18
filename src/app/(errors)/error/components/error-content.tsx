@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { useGoHome } from '~/src/lib/utils';
+import { useGoHome } from '../utils/index';
 
 // Lazy load components
 const Error404 = dynamic(() => import('./error-404').then(mod => mod.Error404), {

@@ -188,23 +188,27 @@ function createOrder(id: number, items: CheckoutItem[], products: Product[], use
   }
 })();
 
-// // bootstrap
-// (async () => {
-//   data.users;
-//   data.categories;
-//   data.products;
-//   data.orders;
+ // bootstrap
+(async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  data.users;
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  data.categories;
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  data.products;
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  data.orders;
 
-//   if (data.orders.length === 0) {
-//     await checkout(
-//       data.users.at(0)!,
-//       data.products.slice(0, 3).map(product => ({ id: product.id })),
-//     )
-//       .then(() => {
-//         console.info('DB: initial order created');
-//       })
-//       .catch(error => {
-//         console.error('DB: failed to create initial order', error);
-//       });
-//   }
-// })();
+  if (data.orders.length === 0) {
+    await checkout(
+      data.users.at(0)!,
+      data.products.slice(0, 3).map(product => ({ id: product.id })),
+    )
+      .then(() => {
+        console.info('DB: initial order created');
+      })
+      .catch(error => {
+        console.error('DB: failed to create initial order', error);
+      });
+  }
+})();

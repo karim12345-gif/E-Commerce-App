@@ -6,14 +6,25 @@ export async function POST(request: NextRequest) {
   try {
     const payload: Partial<Checkout> = await request.json();
 
-    if (!payload || !payload.products || !payload.products.length) {
+    // Check if user and products are valid
+    if (!payload?.products || !payload.products.length) {
       return NextResponse.json(
-        { success: false, message: 'Failed to place order: invalid request!', data: null },
+        { success: false, message: 'Failed to place order: Invalid request!', data: null },
         { status: 400 },
       );
     }
 
-    const order = await checkout(payload.user ?? data.users[0], payload.products);
+    // Ensure we always have a valid user
+    const user = payload.user ?? (data.users.length ? data.users[0] : null);
+    
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: 'Failed to place order: User not found', data: null },
+        { status: 400 },
+      );
+    }
+
+    const order = await checkout(user, payload.products);
 
     return NextResponse.json(
       {
@@ -25,7 +36,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error(error);
-
     return NextResponse.json(
       {
         success: false,

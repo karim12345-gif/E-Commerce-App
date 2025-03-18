@@ -64,6 +64,7 @@ export const useCheckoutLogic = () => {
   // Memoize submit handler to prevent unnecessary recreations
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+
   
     // Check if the cart is empty
     if (cart.length === 0) {
