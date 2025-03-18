@@ -110,16 +110,16 @@ If you can track the git commits, you would notice that i first used react query
 
 ### Why use Static Generation (SSG) for the product page:
 
-1- Better Performance & Faster Load Times 🚀
+1- Better Performance & Faster Load Times 
 
 2- Pages are pre-built at build time, making them load instantly for users.
-Improved SEO 📈
+Improved SEO 
 
 3- Since pages are pre-rendered, search engines can easily crawl and index product data.
-Reduced Server Load 💰
+Reduced Server Load 
 
 4- No need to fetch data on every request, reducing API calls and backend load.
-Revalidation for Fresh Data 🔄
+Revalidation for Fresh Data 
 
 5- I also sat the revalidate: 3600 (1 hour) to fetch new product data periodically, ensuring the page stays up-to-date.
 

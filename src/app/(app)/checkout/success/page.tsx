@@ -1,5 +1,3 @@
-'use client';
-
 import dynamic from 'next/dynamic';
 
 const SuccessPage = dynamic(() => import('~/src/components/checkout').then(mod => mod.SuccessPage), {

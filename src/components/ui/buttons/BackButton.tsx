@@ -22,6 +22,7 @@ const BackButton = ({
 
   return (
     <ButtonIconLeft
+      aria-label="ButtonLeft"
       variant={variant}
       onClick={handleBack}
       className={className}

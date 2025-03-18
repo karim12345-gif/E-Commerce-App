@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode, Suspense } from 'react';
 import { CartProvider } from '../context/CartContext';
 import ReactQueryProvider from './ReactQueryProvider';

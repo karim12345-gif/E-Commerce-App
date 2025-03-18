@@ -80,7 +80,9 @@ export function CartSheet() {
                       <Image
                         src={item.image}
                         alt={item.name}
-                        fill
+                        width={80}
+                        height={80}
+                        loading='lazy'
                         className='object-cover rounded-lg'
                         sizes='(max-width: 80px) 100vw, 80px'
                       />
@@ -96,6 +98,7 @@ export function CartSheet() {
                   </div>
                   <div className='flex items-center space-x-2'>
                     <Button
+                      aria-label='decrease quantity'
                       variant='outline'
                       size='icon'
                       className='h-8 w-8'
@@ -105,6 +108,7 @@ export function CartSheet() {
                     </Button>
                     <span className='text-sm sm:text-base'>{item.quantity}</span>
                     <Button
+                      aria-label='update Quantity'
                       variant='outline'
                       size='icon'
                       className='h-8 w-8'
@@ -112,7 +116,13 @@ export function CartSheet() {
                     >
                       <Plus className='h-3 w-3' />
                     </Button>
-                    <Button variant='ghost' size='icon' className='h-8 w-8' onClick={() => removeFromCart(item.id)}>
+                    <Button
+                      aria-label='remove from cart'
+                      variant='ghost'
+                      size='icon'
+                      className='h-8 w-8'
+                      onClick={() => removeFromCart(item.id)}
+                    >
                       <Trash2 className='h-4 w-4 text-red-500' />
                     </Button>
                   </div>

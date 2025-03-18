@@ -91,3 +91,7 @@ export type BackButtonProps = {
   variant?: 'ghost' | 'default' | 'outline';
   className?: string;
 };
+
+export interface ErrorProps {
+  goHome: () => void;
+}

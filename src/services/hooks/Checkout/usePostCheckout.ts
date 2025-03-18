@@ -10,7 +10,6 @@ const postCheckout = async (data: CheckoutDto) => {
     data,
   )
 
-  // console.log("response",response)
   return response.data.body
 }
 

@@ -1,15 +1,8 @@
-'use client';
-
 import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
-import { Error404Props } from '~/src/interfaces/error';
+import { ErrorProps } from '~/src/types/app';
 
-export const Error404 = ({ router }: Error404Props) => {
-  // buttons in all error paged could be removed and we can use the BackButton that was created
-  const handleGoHome = () => {
-    router?.push('/');
-  };
-
+export const Error404 = ({ goHome }: ErrorProps) => {
   return (
     <div className='flex items-center justify-center h-screen bg-gray-50'>
       <div className='p-8 flex flex-col items-center text-center'>
@@ -23,7 +16,7 @@ export const Error404 = ({ router }: Error404Props) => {
         <ErrorImage src='/images/pages/404.png' alt='404 Page Not Found' width={200} height={200} />
 
         {/* Back to Home Button */}
-        <Button onClick={handleGoHome} variant='default' size='default' className='px-6 py-3 bg-blue-600 text-white'>
+        <Button onClick={goHome} variant='default' size='default' className='px-6 py-3 bg-blue-600 text-white'>
           Back to Home
         </Button>
       </div>

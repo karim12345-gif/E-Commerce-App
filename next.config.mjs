@@ -19,6 +19,7 @@
 /** @type {import('next').NextConfig} */
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 const nextConfig = {
+  swcMinify: true,
   images: {
     domains: ['placehold.co'],
     remotePatterns: [
@@ -53,13 +54,12 @@ const nextConfig = {
         },
       },
     };
-
-    // Bundle Analyzer Plugin
-    if (process.env.ANALYZE) {
+    // Bundle Analyzer only runs when ANALYZE=true
+    if (process.env.ANALYZE === 'true') {
       config.plugins.push(
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
-          reportFilename: 'bundle-report.html',
+          reportFilename: './analyze/bundle-report.html',
           openAnalyzer: false,
         }),
       );
@@ -69,6 +69,16 @@ const nextConfig = {
     config.optimization.minimize = true;
 
     return config;
+  },
+  compiler: {
+    optimizeFonts: true, // Optimize fonts
+    optimizeCss: true, // Optimize CSS
+    removeConsole: true, //  Remove console logs in production
+    modularizeImports: {
+      'lodash': {
+        transform: 'lodash/{{member}}',
+      },
+    },
   },
 };
 

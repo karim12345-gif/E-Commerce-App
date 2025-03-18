@@ -1,8 +1,16 @@
+'use client';
+
+
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { CartItem } from "../interfaces/cart";
 import { Order } from "../types/app";
+import { useRouter } from "next/navigation";
 
+export const useGoHome = () => {
+  const router = useRouter();
+  return () => router.push("/");
+};
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }

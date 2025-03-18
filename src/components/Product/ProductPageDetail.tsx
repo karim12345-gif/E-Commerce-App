@@ -17,7 +17,14 @@ export function ProductPageDetailPresenter({
         <div className='grid md:grid-cols-2 gap-8'>
           <div className='space-y-4'>
             <div className='relative aspect-square overflow-hidden rounded-lg'>
-              <Image src={product.images[selectedImageIndex]} alt={product.name} fill className='object-cover' priority />
+              <Image
+                src={product.images[selectedImageIndex]}
+                alt={product.name}
+                width={450}
+                height={450}
+                className='object-cover'
+                quality={75}
+              />
             </div>
 
             <div className='flex gap-4 overflow-x-auto pb-5 px-1'>
@@ -29,7 +36,7 @@ export function ProductPageDetailPresenter({
                     className={`relative w-20 aspect-square rounded-md overflow-hidden flex-shrink-0
                     ${selectedImageIndex === index ? 'ring-2 ring-primary' : ''}`}
                   >
-                    <Image src={image} alt={`Product view ${index + 1}`} fill className='object-cover' />
+                    <Image src={image} alt={`Product view ${index + 1}`} width={450} height={450} className='object-cover' />
                   </button>
                 ))}
               </div>
@@ -54,7 +61,7 @@ export function ProductPageDetailPresenter({
               {product.price.currency} {product.price.amount}
             </div>
 
-            <Button size='lg' className='w-full md:w-auto' onClick={() => onAddToCart()}>
+            <Button aria-label='Add to cart' size='lg' className='w-full md:w-auto' onClick={() => onAddToCart()}>
               Add to Cart
             </Button>
           </div>

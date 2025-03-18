@@ -5,7 +5,7 @@ import { ProductPageSkeleton } from '../components/Product';
 // Set to false if you want to disable server-side rendering for this component
 const ProductsPage = dynamic(() => import('./(app)/products/page'), {
   loading: () => <ProductPageSkeleton />,
-  ssr: true,
+  ssr: false,
 });
 
 export default function Home() {

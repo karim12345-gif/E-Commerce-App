@@ -1,5 +1,3 @@
-'use client';
-
 import { Card, CardContent } from '~/src/components/ui/card/card';
 import { Button } from '~/src/components/ui/buttons/button';
 import { DollarSign, Info } from 'lucide-react';

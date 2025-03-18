@@ -1,8 +1,8 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { ErrorContentProps } from '~/src/interfaces';
 import dynamic from 'next/dynamic';
+import { useGoHome } from '~/src/lib/utils';
 
 // Lazy load components
 const Error404 = dynamic(() => import('./error-404').then(mod => mod.Error404), {
@@ -15,29 +15,22 @@ const Error400 = dynamic(() => import('./error-400').then(mod => mod.Error400), 
   ssr: false,
 });
 
-export function ErrorContent({ router }: ErrorContentProps) {
+export function ErrorContent() {
   const searchParams = useSearchParams();
   const errorType = searchParams.get('type');
-  const errorMessage = searchParams.get('message');
-  const returnUrl = searchParams.get('returnUrl') || '/';
 
-  // Common props for all error components
-  const errorProps = {
-    router,
-    message: errorMessage || undefined,
-    returnUrl,
-  };
+  const goHome = useGoHome(); // Import shared navigation function
 
   // if 400 route to the error page
   if (errorType === '400') {
-    return <Error400 {...errorProps} />;
+    return <Error400 goHome={goHome} />;
   }
 
   // if 404 route to the error page
   if (errorType === '404') {
-    return <Error404 {...errorProps} />;
+    return <Error404 goHome={goHome} />;
   }
 
   // else fallback to 500
-  return <Error500 {...errorProps} />;
+  return <Error500 goHome={goHome} />;
 }

@@ -25,7 +25,9 @@ export const OrderSummary = ({ cart }: OrderSummaryProps) => {
               <Image
                 src={item.image}
                 alt={item.name}
-                fill
+                width={450}
+                height={450}
+                loading='lazy'
                 className='object-cover rounded-lg'
                 sizes='(max-width: 80px) 100vw, 80px'
               />

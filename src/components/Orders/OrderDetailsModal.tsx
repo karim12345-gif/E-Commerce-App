@@ -1,5 +1,3 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/src/components/ui/card/card';
 import { Button } from '~/src/components/ui/buttons/button';
 import { Order } from '~/src/types/app';

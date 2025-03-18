@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { Button } from '~/src/components/ui/buttons/button';
 import { Card, CardContent, CardFooter } from '~/src/components/ui/card/card';
 import { useCart } from '~/src/context/CartContext';
@@ -21,12 +21,12 @@ export function ProductCard({ product }: ProductCardProps) {
     return Array.isArray(product.images) ? product.images[0] : product.images;
   }, [product.images]);
 
-  const priceInfo = useMemo(() => {
-    return Array.isArray(product.price) ? product.price[0] : product.price;
-  }, [product.price]);
+  // price info
+  const priceInfo = Array.isArray(product.price) ? product.price[0] : product.price;
 
   // adding items to cart
-  const handleAddToCart = async () => {
+  // Memoized function to prevent unnecessary re-renders
+  const handleAddToCart = useCallback(async () => {
     try {
       await addToCart({
         id: product.id,
@@ -37,20 +37,20 @@ export function ProductCard({ product }: ProductCardProps) {
 
       toast({
         title: 'Success',
-        description: `${product.name} has been added to your cart`,
+        description: `${product.name} added to cart`,
         variant: 'default',
         duration: 1000,
       });
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to add item to cart. Please try again.',
+        description: 'Failed to add item to cart',
         variant: 'destructive',
         duration: 1000,
       });
       console.error('Add to cart error:', error);
     }
-  };
+  }, [addToCart, product.id, product.name, priceInfo?.amount, imageUrl]);
 
   return (
     <Card>
@@ -59,11 +59,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <Image
             src={imageUrl}
             alt={product.name}
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            width={350}
+            height={350}
             className='object-cover'
-            priority
-            unoptimized
+            quality={50}
+            unoptimized={false}
           />
         )}
       </div>

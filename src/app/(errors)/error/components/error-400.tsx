@@ -1,15 +1,8 @@
-'use client';
-
 import { Button } from '~/src/components/ui/buttons/button';
-import { Error400Props } from '~/src/interfaces';
 import { ErrorImage } from './error-image';
+import { ErrorProps } from '~/src/types/app';
 
-export function Error400({ router }: Error400Props) {
-  // buttons in all error paged could be removed and we can use the BackButton that was created
-  const handleGoHome = () => {
-    router.push('/');
-  };
-
+export function Error400({ goHome }: ErrorProps) {
   return (
     <div className='flex items-center justify-center h-screen bg-gray-50'>
       <div className='p-8 flex flex-col items-center text-center'>
@@ -21,7 +14,7 @@ export function Error400({ router }: Error400Props) {
         <ErrorImage src='/images/pages/500.png' alt='400 Bad Request Error' />
 
         <div className='space-x-4 mt-2 justify-center items-center'>
-          <Button onClick={handleGoHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
+          <Button onClick={goHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
             Back to Home
           </Button>
         </div>
