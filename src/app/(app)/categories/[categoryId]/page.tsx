@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useGetListOfProducts } from '~/src/services/hooks/Products';
@@ -51,11 +52,15 @@ export default function CategoryDetailPage() {
   const categoryProducts = products.data.filter(product => product.categories?.includes(category?.slug ?? ''));
   return (
     <div className='container mx-auto py-8 px-4'>
-      {/* Category Header */}
-      {category && <CategoryHeader name={category.name} description={category.description} />}
+      {/* Category Header (With Suspense) */}
+      <Suspense fallback={<ButtonLoading />}>
+        {category && <CategoryHeader name={category.name} description={category.description} />}
+      </Suspense>
 
-      {/* Products Grid */}
-      <ProductCategoryList products={categoryProducts} />
+      {/* Products Grid (With Suspense) */}
+      <Suspense fallback={<ButtonLoading />}>
+        <ProductCategoryList products={categoryProducts} />
+      </Suspense>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { useCart } from '~/src/context';
 import { useParams } from 'next/navigation';
@@ -13,7 +14,6 @@ const ProductPageDetailPresenter = dynamic(
   () => import('~/src/components/Product').then(mod => mod.ProductPageDetailPresenter),
   {
     ssr: false,
-    loading: () => null,
   },
 );
 
@@ -68,12 +68,14 @@ export default function ProductPageDetail() {
   return (
     <>
       {product && (
-        <ProductPageDetailPresenter
-          product={product}
-          selectedImageIndex={selectedImageIndex}
-          onImageSelect={setSelectedImageIndex}
-          onAddToCart={handleAddToCart}
-        />
+        <Suspense fallback={<ButtonLoading />}>
+          <ProductPageDetailPresenter
+            product={product}
+            selectedImageIndex={selectedImageIndex}
+            onImageSelect={setSelectedImageIndex}
+            onAddToCart={handleAddToCart}
+          />
+        </Suspense>
       )}
     </>
   );

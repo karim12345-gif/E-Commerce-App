@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { useGetListOfCategories } from '~/src/services/hooks/Categories/useGetListOfCategories';
 
@@ -26,12 +27,14 @@ export default function CategoriesPage() {
   }
 
   return (
-    <div className='min-h-screen flex items-center justify-center mt-6'>
-      <div className='container mx-auto py-8 px-4'>
-        <BackButton />
-        <h1 className='text-3xl font-bold mb-8'>Product Categories List:</h1>
-        {categories ? <CategoriesList categories={categories} /> : <div>No categories found.</div>}
+    <Suspense fallback={<CategoriesSkeleton />}>
+      <div className='min-h-screen flex items-center justify-center mt-6'>
+        <div className='container mx-auto py-8 px-4'>
+          <BackButton />
+          <h1 className='text-3xl font-bold mb-8'>Product Categories List:</h1>
+          {categories ? <CategoriesList categories={categories} /> : <div>No categories found.</div>}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }

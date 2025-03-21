@@ -19,7 +19,7 @@ export function ErrorContent() {
   const searchParams = useSearchParams();
   const errorType = searchParams.get('type');
 
-  const goHome = useGoHome(); // Import shared navigation function
+  const goHome = useGoHome();
 
   // if 400 route to the error page
   if (errorType === '400') {

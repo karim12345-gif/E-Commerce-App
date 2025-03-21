@@ -53,9 +53,8 @@ To show success/error popup messages
 
 I have installed analyze to check the application's performance. You can run the following command to analyze the bundle size and optimize performance:
 
-npm run analyze
+npm run analyze or we can run ANALYZE=true npx next build
 ****
-
 
 
 # Testing 
@@ -70,8 +69,6 @@ I unit tested a couple of components to demonstrate how it works. I tested the b
 The __MOCK__ directory serves a crucial role in unit testing by providing simulated versions of various components, contexts, and data. In this E-Commerce App, mocks are used to simulate data during unit testing.
 
 ****
-
-
 
 # architecture decisions
 
@@ -89,7 +86,9 @@ Folder structuring and interfaces
 
 6- The ReactQueryProvider and Providers components set up global state management and data fetching for the app. ReactQueryProvider initializes React Query's configuration and error handling, ensuring consistent data fetching and caching across the app. 
 
-7- And then you have providers wraps the app with necessary context providers like CartProvider and ReactQueryProvider, enabling data synchronization and reducing prop drilling.
+7- The Providers component wraps the entire app with the necessary context providers like CartProvider and ReactQueryProvider, enabling shared global state, data synchronization, and minimal prop drilling.
+
+   1. I used fetch() for server-side rendering, caching, and revalidation SSG, ISR and SSR concepts and React Query for caching, retries, and background data updates.
 
 ****
 ### Thought process
@@ -138,3 +137,30 @@ Revalidation for Fresh Data
 ## 2- Error boundaries:
 
 Error boundaries prevent the entire app from crashing by catching errors in components and displaying a fallback UI. They help maintain a smooth user experience, even when parts of the app fail. Additionally, error boundaries centralize error tracking and reporting, making it easier to manage and debug issues without interrupting the user flow.
+
+
+## 3- How would you improve the app if you had more time?
+I’d improve the data fetching strategy by combining React Query with native fetch(), as recommended by Next.js.
+Using fetch() allows us to benefit from automatic caching, streaming, and revalidation on the server, while React Query handles client-side caching, retries, and background updates. This gives us the best of both worlds — great performance and a better user experience.
+
+## 4- Static Generation (SSG) and/or Server-Side Rendering (SSR): since this is app based and not pages, we use Fetch instead 
+In the App Router, we don’t use getStaticProps or getServerSideProps anymore like Page Routing did.
+Instead, we handle data fetching using fetch() directly inside async Server Components, and we control the rendering behavior using options like:
+
+1- cache: "force-cache" → Used for static generation,the data is fetched once at build time and cached (SSG-like).
+
+2- cache: "no-store" → Used for dynamic rendering,the data is fetched on every request (SSR-like).
+
+3- next: { revalidate: X } → Used for incremental static regeneration,the data is cached and reused for X seconds (ISR-like).
+
+So even though it's not called SSG/SSR anymore, we still get similar behavior — just in a more flexible and modern way.
+
+## 5- Since i used axios, Why does Next.js recommend fetch() over Axios? 
+
+Next.js recommends fetch() for several reasons:
+
+1- It's native to Node.js, there is no need to install external packages, like axios for example 
+2- It supports automatic caching and revalidation in Server Components
+3- It supports streaming responses, improving performance and user-perceived speed
+
+Axios is still useful for advanced features like interceptors or request transformations, but for most use cases in a Next.js app — especially when working with the App Router and React Server Components, fetch() is the better fit.
