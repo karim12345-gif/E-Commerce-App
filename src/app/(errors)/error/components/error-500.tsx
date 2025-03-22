@@ -4,7 +4,7 @@ import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
 import { useRouter } from 'next/navigation';
 
-const Error404 = () => {
+const Error500 = () => {
   const router = useRouter();
   const handleGoHome = () => {
     router.push('/');
@@ -30,4 +30,4 @@ const Error404 = () => {
   );
 };
 
-export default Error404;
+export default Error500;
