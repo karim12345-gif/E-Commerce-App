@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   }
   return NextResponse.json(
     {
-      success: false,
+      success: true,
       message: `Found ${products.length} product item(s).`,
       data: products,
     },

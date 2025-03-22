@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
 import { useRouter } from 'next/navigation';

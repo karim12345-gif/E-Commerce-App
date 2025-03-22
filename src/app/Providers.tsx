@@ -13,7 +13,7 @@ export default function Providers({ children }: { children: ReactNode }) {
         <Suspense fallback={<ButtonLoading />}>
           <ReactQueryProvider>
             {children}
-            {/* make it true to check the state and follow, i'll make it false so it the TanStack dev tools is hiddne  */}
+            {/* make it true to check the state and follow, it will be set to false to the TanStack dev tools is hidden  */}
             {/* {isDev && <ReactQueryDevtools initialIsOpen={true} buttonPosition='bottom-right' />} */}
           </ReactQueryProvider>
         </Suspense>

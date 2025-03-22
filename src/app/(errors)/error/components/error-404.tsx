@@ -2,7 +2,6 @@
 
 import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
-// import { Error404Props } from '~/src/interfaces/error';
 import { useRouter } from 'next/navigation';
 
 export const Error404 = () => {

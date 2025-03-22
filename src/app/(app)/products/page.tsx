@@ -1,24 +1,24 @@
+'use client';
 import dynamic from 'next/dynamic';
-import { Product } from '~/src/types/app';
-import { getProducts } from '~/src/services/server/products';
-
-interface ApiResponse {
-  data: Product[];
-}
+import { ProductPageSkeleton } from '~/src/components/Product';
+import { useGetListOfProducts } from '~/src/services/hooks/Products';
 
 // Dynamically import the ProductCard component
 const ProductCard = dynamic(() => import('~/src/components/Product').then(mod => mod.ProductCard), {
   ssr: false,
 });
 
-// Server Component (Replaces `getStaticProps`)
-export default async function ProductsPage() {
-  const products: ApiResponse = await getProducts();
+export default function ProductsPage() {
+  const { data: products, isLoading } = useGetListOfProducts();
+
+  if (isLoading) {
+    return <ProductPageSkeleton />;
+  }
 
   return (
     <div className='container mx-auto p-6'>
       <h1 className='text-2xl font-bold mb-6'>Products Page</h1>
-      {!products.data || products.data.length === 0 ? (
+      {!products?.data.length ? (
         <div className='text-center py-10'>
           <p className='text-lg'>No products available.</p>
         </div>
@@ -31,12 +31,4 @@ export default async function ProductsPage() {
       )}
     </div>
   );
-}
-
-// Static Metadata (Like `getStaticProps`)
-export function generateMetadata() {
-  return {
-    title: 'Products Page',
-    description: 'View our collection of products',
-  };
 }

@@ -97,7 +97,7 @@ export interface ErrorProps {
 }
 
 
-export interface ApiResponse {
+export interface ApiResponseCategory {
   success: boolean;
   message: string;
   data: Category[];
@@ -109,3 +109,12 @@ export interface HttpError extends Error {
     data?: unknown;
   };
 }
+export interface ApiResponseProduct<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
+
+export type ProductResponse = ApiResponseProduct<Product>;
+export type ProductListResponse = ApiResponseProduct<Product[]>;
+

@@ -164,3 +164,25 @@ Next.js recommends fetch() for several reasons:
 3- It supports streaming responses, improving performance and user-perceived speed
 
 Axios is still useful for advanced features like interceptors or request transformations, but for most use cases in a Next.js app — especially when working with the App Router and React Server Components, fetch() is the better fit.
+
+****
+
+#  Future Improvements & Refactoring Ideas
+
+1. <h3>Component Optimization and Breakdown:</h3>
+   
+Further refactor larger components into smaller, reusable, and testable chunks. This will improve code readability, maintainability, and promote better scalability as the app grows.
+
+2. <h3>Accessibility Improvements (a11y):<h3>
+   
+Although the app currently scores 88% on accessibility, I’d like to push that even higher by fine-tuning ARIA labels, improving keyboard navigation across all interactive elements, and ensuring full compliance with semantic HTML standards.
+
+3. <h3>Improved Test Coverage:<h3>
+   
+While I’ve already written some unit tests using Vitest, I plan to expand the test suite and increase overall coverage from 80% to 90%+. This includes testing more edge cases, user interactions, and data-fetching logic for better confidence during development. 
+
+I also plan to integrate Cypress for end-to-end (E2E) testing, this will allow me to simulate real user behavior and test the flows such as product navigation, cart updates, and the checkout process, this will ensure a seamless user experience across the entire app.
+
+4. <h3>Improved Loading UX:<h3>
+   
+I have already, add skeleton loaders, but i wanna add more to handle loading states for API-heavy components.

@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { ProductPageSkeleton } from '../components/Product';
 
 // Lazy load the ProductsPage component
-// Set to false if you want to disable server-side rendering for this component
 const ProductsPage = dynamic(() => import('./(app)/products/page'), {
   loading: () => <ProductPageSkeleton />,
   ssr: false,

@@ -1,9 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import Error404 from './error-404';
-import Error400 from './error-400';
-import Error500 from './error-500';
+
+const Error404 = dynamic(() => import('./error-404'), { ssr: false });
+const Error400 = dynamic(() => import('./error-400'), { ssr: false });
+const Error500 = dynamic(() => import('./error-500'), { ssr: false });
 
 export function ErrorContent() {
   const searchParams = useSearchParams();

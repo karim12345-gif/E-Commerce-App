@@ -1,9 +1,16 @@
-import { CategoriesApi } from '../../api';
-import { ApiResponse, Category, HttpError } from '~/src/types/app';
+import { ApiResponseCategory, Category, HttpError } from '~/src/types/app';
 import { useQuery } from '@tanstack/react-query';
+import { CategoriesApi } from "../../api";
 
 
-
+/**
+ * 
+ * Fetches the complete list of product categories from the API
+ * Now this approach takes advantage of Next.js App Router features like:
+ * - Static caching with `force-cache` for SSG like behavior and `revalidate` for ISR like behavior
+ * 
+ * @returns {Promise<Category[]>} 
+ */
 const getListOfCategories = async (): Promise<Category[]> => {
   try {
     const response = await fetch(CategoriesApi.getListOfProductCategories(), {
@@ -22,7 +29,7 @@ const getListOfCategories = async (): Promise<Category[]> => {
       throw error;
     }
 
-    const json: ApiResponse = await response.json();
+    const json: ApiResponseCategory = await response.json();
 
     if (!json.success || !json.data) {
       const error: HttpError = new Error(json.message || 'Invalid response');
