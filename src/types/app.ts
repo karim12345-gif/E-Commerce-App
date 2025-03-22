@@ -95,3 +95,17 @@ export type BackButtonProps = {
 export interface ErrorProps {
   goHome: () => void;
 }
+
+
+export interface ApiResponse {
+  success: boolean;
+  message: string;
+  data: Category[];
+}
+
+export interface HttpError extends Error {
+  response?: {
+    status: number;
+    data?: unknown;
+  };
+}

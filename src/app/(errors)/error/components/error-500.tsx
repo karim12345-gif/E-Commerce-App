@@ -1,8 +1,12 @@
 import { Button } from '~/src/components/ui/buttons/button';
 import { ErrorImage } from './error-image';
-import { ErrorProps } from '~/src/types/app';
+import { useRouter } from 'next/navigation';
 
-export function Error500({ goHome }: ErrorProps) {
+const Error404 = () => {
+  const router = useRouter();
+  const handleGoHome = () => {
+    router.push('/');
+  };
   return (
     <div className='flex items-center justify-center h-screen bg-gray-50'>
       <div className='p-8 flex flex-col items-center text-center'>
@@ -15,11 +19,13 @@ export function Error500({ goHome }: ErrorProps) {
         <ErrorImage src='/images/pages/500.png' alt='500 Internal Server Error' />
 
         <div className='space-x-4'>
-          <Button onClick={goHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
+          <Button onClick={handleGoHome} variant='destructive' size='default' className='px-6 py-3 bg-red-600 text-white'>
             Back to Home
           </Button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Error404;
