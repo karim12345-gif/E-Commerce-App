@@ -48,7 +48,7 @@ export function CartSheet() {
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild>
         {/* open the cart sheet */}
-        <Button variant='outline' size='icon' className='relative ml-auto' onClick={openSheet}>
+        <Button variant='outline' size='icon' className='relative ml-auto' onClick={openSheet} aria-label='Open Cart'>
           <ShoppingCart className='h-5 w-5' />
           {cart?.length > 0 && (
             <span

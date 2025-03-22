@@ -186,3 +186,14 @@ I also plan to integrate Cypress for end-to-end (E2E) testing, this will allow m
 4. <h3>Improved Loading UX:<h3>
    
 I have already, add skeleton loaders, but i wanna add more to handle loading states for API-heavy components.
+
+
+
+#  Light House Result :
+
+![alt text](/public/images/pages/LightHouse.png)
+
+1. Performance has been optimized to 98, i think it can even be improved more if i break down some components.
+
+2. Accessability, is already high but it can be improved upon
+3. Best practices and Seo are 100% 
